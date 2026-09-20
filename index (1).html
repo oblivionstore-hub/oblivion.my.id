@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBLIVION STORE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
+body{font-family:'Space Grotesk',sans-serif;background:#060609}
+.glow:hover{box-shadow:0 0 25px rgba(168,85,247,0.4)}
+</style>
+</head>
+<body class="text-white">
+
+<!-- TOPBAR -->
+<div class="flex justify-between items-center px-5 py-4 border-b border-zinc-900 sticky top-0 bg-[#060609]/90 backdrop-blur z-40">
+  <div class="font-black text-xl tracking-widest">OBLIVION<span class="text-purple-500">.STORE</span></div>
+  <a href="#transfer" class="text-[11px] px-3 py-2 rounded-full bg-zinc-900 border border-zinc-800">TRANSFER RANK</a>
+</div>
+
+<div class="max-w-6xl mx-auto p-4 md:p-8">
+  <!-- TABS -->
+  <div class="flex gap-2 mb-6 overflow-x-auto">
+    <button onclick="switchCat('ranks')" id="tab-ranks" class="tab active px-5 py-2.5 rounded-full text-xs font-bold bg-purple-600 text-black">RANKS</button>
+    <button onclick="switchCat('money')" id="tab-money" class="tab px-5 py-2.5 rounded-full text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400">MONEY</button>
+    <button onclick="switchCat('key')" id="tab-key" class="tab px-5 py-2.5 rounded-full text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400">KEYS</button>
+  </div>
+
+  <!-- RANKS SECTION -->
+  <div id="sec-ranks" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- Script will fill via JS biar rapi -->
+  </div>
+
+  <!-- MONEY SECTION -->
+  <div id="sec-money" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+  <!-- KEY SECTION -->
+  <div id="sec-key" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+
+  <!-- TRANSFER RANK -->
+  <div id="transfer" class="mt-16 border border-purple-900/50 bg-gradient-to-b from-zinc-900/50 to-black rounded-[20px] p-6">
+    <h2 class="text-2xl font-black">TRANSFER RANK</h2>
+    <p class="text-xs text-zinc-500 mt-1">Pindahkan rank kamu ke player lain. Biaya admin gratis.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
+      <input id="t-from" placeholder="Nama Pemain Awal (Kamu)" class="bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm outline-none focus:border-purple-600">
+      <input id="t-to" placeholder="Transfer Ke Pemain" class="bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm outline-none focus:border-purple-600">
+      <select id="t-rank" class="bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm outline-none">
+        <option>VIPER - Rp 15.000</option>
+        <option>REVENANT - Rp 35.000</option>
+        <option>SPECTER - Rp 65.000</option>
+        <option>PHANTOM - Rp 90.000</option>
+        <option>OBLIVION - Rp 120.000</option>
+      </select>
+    </div>
+    <button onclick="doTransfer()" class="mt-4 w-full md:w-auto px-8 py-3 rounded-xl bg-purple-600 text-black font-bold text-sm">KONFIRMASI TRANSFER</button>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+  <div class="bg-[#121218] border border-zinc-800 rounded-[20px] w-full max-w-sm p-6">
+    <div class="flex justify-between items-center">
+      <h3 id="pop-title" class="font-bold text-lg">Checkout</h3>
+      <button onclick="closePop()" class="w-8 h-8 rounded-full bg-zinc-900">✕</button>
+    </div>
+    <p id="pop-desc" class="text-xs text-zinc-500 mt-1">Isi data dengan benar</p>
+
+    <div class="mt-5 space-y-3">
+      <input id="mc-name" placeholder="Nama Minecraft Asli" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm outline-none focus:border-purple-600">
+      <div class="bg-black border border-zinc-800 rounded-xl px-4 py-3 flex justify-between items-center">
+        <span class="text-sm">Metode Pembayaran</span>
+        <span class="text-xs px-3 py-1 rounded-full bg-purple-600 text-black font-bold">QRIS ALL PAYMENT</span>
+      </div>
+      <div id="pop-qty-wrap" class="hidden">
+        <div class="flex justify-between items-center bg-black border border-zinc-800 rounded-xl px-4 py-3">
+          <span class="text-sm">Quantity</span>
+          <div class="flex items-center gap-3">
+            <button onclick="chgQty(-1)" class="w-7 h-7 rounded-full bg-zinc-800">-</button>
+            <span id="pop-qty" class="text-sm font-bold">1</span>
+            <button onclick="chgQty(1)" class="w-7 h-7 rounded-full bg-zinc-800">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between text-sm pt-2">
+        <span class="text-zinc-500">Total:</span>
+        <span id="pop-total" class="font-black text-purple-400">Rp 0</span>
+      </div>
+      <button onclick="goWA()" class="w-full py-3.5 rounded-xl bg-purple-600 text-black font-black text-sm mt-2">LANJUTKAN KE WHATSAPP</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const WA = "6289676623406";
+let curItem = null, curQty = 1;
+
+const ranks = [
+  {name:"VIPER", price:15000, lore:"Bayangan pertama yang merayap di kegelapan. Untuk mereka yang baru memulai jejak di Oblivion, lincah dan tak terlihat."},
+  {name:"REVENANT", price:35000, lore:"Arwah yang kembali menagih janji. Langkahmu mulai menggema di lorong-lorong server, ditakuti para pemula."},
+  {name:"SPECTER", price:65000, lore:"Sosok tanpa wujud yang mengintai di antara kabut void. Keberadaanmu adalah mitos yang jadi nyata."},
+  {name:"PHANTOM", price:90000, lore:"Ketakutan itu sendiri. Namamu dibisikkan dalam gelap, sebuah legenda yang tak bisa dibunuh."},
+  {name:"OBLIVION", price:120000, lore:"Puncak dari kehampaan. Kau bukan lagi player, kau adalah akhir dari segalanya. Penguasa mutlak."}
+];
+const moneys = [
+  {name:"100K Money", price:20000},
+  {name:"300K Money", price:35000},
+  {name:"500K Money", price:50000},
+  {name:"800K Money", price:60000},
+  {name:"1M Money", price:70000}
+];
+const keys = [
+  {name:"Deluxe Key", price:10000},
+  {name:"Legend Key", price:15000},
+  {name:"Mythical Key", price:20000}
+];
+
+function render(){
+  document.getElementById('sec-ranks').innerHTML = ranks.map(r=>`
+    <div class="bg-[#121218] border border-zinc-800 rounded-[20px] p-5 glow transition">
+      <div class="text-xl">💀</div>
+      <h3 class="font-black text-xl mt-2">${r.name}</h3>
+      <p class="text-[11px] text-zinc-500 mt-2 leading-relaxed h-[54px]">${r.lore}</p>
+      <div class="text-purple-400 font-black mt-4">Rp ${r.price.toLocaleString('id-ID')}</div>
+      <button onclick="openPop('${r.name}',${r.price},'rank')" class="w-full mt-4 py-3 rounded-xl border border-purple-600/50 text-purple-300 text-xs font-bold hover:bg-purple-600 hover:text-black transition">BUY NOW</button>
+    </div>
+  `).join('');
+  document.getElementById('sec-money').innerHTML = moneys.map(m=>`
+    <div class="bg-[#121218] border border-zinc-800 rounded-[20px] p-5">
+      <div class="text-xl">🪙</div>
+      <h3 class="font-black mt-2">${m.name}</h3>
+      <div class="text-purple-400 font-black mt-4">Rp ${m.price.toLocaleString('id-ID')}</div>
+      <button onclick="openPop('${m.name}',${m.price},'money')" class="w-full mt-4 py-3 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-bold">BUY NOW</button>
+    </div>
+  `).join('');
+  document.getElementById('sec-key').innerHTML = keys.map(k=>`
+    <div class="bg-[#121218] border border-zinc-800 rounded-[20px] p-5">
+      <div class="text-xl">🔑</div>
+      <h3 class="font-black mt-2">${k.name}</h3>
+      <div class="text-purple-400 font-black mt-4">Rp ${k.price.toLocaleString('id-ID')} <span class="text-[10px] text-zinc-600">/pcs</span></div>
+      <button onclick="openPop('${k.name}',${k.price},'key')" class="w-full mt-4 py-3 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-bold">BUY NOW</button>
+    </div>
+  `).join('');
+}
+render();
+
+function switchCat(c){
+  ['ranks','money','key'].forEach(x=>{
+    document.getElementById('sec-'+x).classList.toggle('hidden', x!==c);
+    document.getElementById('tab-'+x).className = x===c? 'tab active px-5 py-2.5 rounded-full text-xs font-bold bg-purple-600 text-black' : 'tab px-5 py-2.5 rounded-full text-xs font-bold bg-zinc-900 border border-zinc-800 text-zinc-400';
+  });
+}
+
+function openPop(name,price,type){
+  curItem={name,price,type}; curQty=1;
+  document.getElementById('pop-title').innerText=name;
+  document.getElementById('pop-desc').innerText= type==='key'? 'Pilih jumlah key (Max 50)' : 'QRIS All Payment - OVO, Dana, Gopay, ShopeePay';
+  document.getElementById('pop-total').innerText='Rp '+price.toLocaleString('id-ID');
+  document.getElementById('pop-qty').innerText='1';
+  document.getElementById('pop-qty-wrap').classList.toggle('hidden', type!=='key');
+  document.getElementById('popup').classList.remove('hidden');
+  document.getElementById('popup').classList.add('flex');
+}
+function closePop(){document.getElementById('popup').classList.add('hidden')}
+function chgQty(d){
+  curQty+=d; if(curQty<1)curQty=1; if(curQty>50)curQty=50;
+  document.getElementById('pop-qty').innerText=curQty;
+  document.getElementById('pop-total').innerText='Rp '+(curItem.price*curQty).toLocaleString('id-ID');
+}
+function goWA(){
+  const mc = document.getElementById('mc-name').value.trim();
+  if(!mc){alert('Isi Nama Minecraft dulu!');return;}
+  let total = curItem.price*curQty;
+  let msg = `Halo Admin Oblivion Store!%0A%0ASaya mau order:%0A- Produk: ${curItem.name}%0A${curItem.type==='key'?`- Quantity: ${curQty}%0A`:''}- Nama MC: ${mc}%0A- Metode: QRIS ALL PAYMENT%0A- Total: Rp ${total.toLocaleString('id-ID')}%0A%0AMohon diproses ya!`;
+  window.open(`https://wa.me/${WA}?text=${msg}`,'_blank');
+}
+function doTransfer(){
+  const fromV=document.getElementById('t-from').value.trim();
+  const toV=document.getElementById('t-to').value.trim();
+  const rankV=document.getElementById('t-rank').value;
+  if(!fromV||!toV){alert('Isi nama pemain awal & tujuan!');return;}
+  let msg=`Halo Admin! Saya mau TRANSFER RANK%0A%0A- Dari: ${fromV}%0A- Ke: ${toV}%0A- Rank: ${rankV}%0A%0AMohon dibantu proses transfernya. Terima kasih!`;
+  window.open(`https://wa.me/${WA}?text=${msg}`,'_blank');
+}
+</script>
+</body>
+</html>

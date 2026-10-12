@@ -1,0 +1,558 @@
+```html
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racun Tech & Gaming - Curated Affiliate Catalog</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#090d16',
+                        cardbg: '#111827',
+                        cardborder: '#1f293d',
+                        neoncyan: '#00f2fe',
+                        neonblue: '#4facfe',
+                        neongreen: '#10b981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background-color: #090d16;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+        }
+        .glow-button {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.7);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-neoncyan selection:text-black">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-darkbg/80 border-b border-cardborder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center glow-effect">
+                    <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">RacunTech</span>
+                    <span class="block text-xs text-slate-400 tracking-wider">CURATED AFFILIATE STORE</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+                <a href="#catalog" class="hover:text-cyan-400 transition-colors">Katalog</a>
+                <a href="#trending" class="hover:text-cyan-400 transition-colors">Paling Dicari</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors">Tentang Kami</a>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="openStatsModal()" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-sm font-medium transition-all">
+                    <i data-lucide="trending-up" class="w-4 h-4 text-cyan-400"></i>
+                    <span class="hidden sm:inline">Statistik Klik</span>
+                </button>
+                <button onclick="openAddModal()" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-semibold text-sm transition-all shadow-lg shadow-cyan-500/20">
+                    <i data-lucide="plus" class="w-4 h-4 text-black"></i>
+                    <span>Tambah Produk</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative overflow-hidden py-16 sm:py-24 border-b border-cardborder/50 bg-gradient-to-b from-darkbg via-[#0d1322] to-darkbg">
+        <div class="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#00f2fe_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-6">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                <span>Racun Gadget & Gaming Terbaik Tanpa Ribet Bikin Konten</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight max-w-3xl mx-auto mb-6">
+                Temukan Setup & Gadget Idaman <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Paling Worth It!</span>
+            </h1>
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto mb-10">
+                Koleksi pilihan barang-barang tech dan gaming berkualitas tinggi dengan harga terbaik. Tinggal klik, pilih marketplace favoritmu, dan langsung check-out!
+            </p>
+
+            <!-- Search & Filter Bar Container -->
+            <div id="catalog" class="max-w-3xl mx-auto bg-cardbg p-3 sm:p-4 rounded-2xl border border-cardborder shadow-2xl backdrop-blur-md">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-1">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Cari nama barang, headset, mouse, dll..." class="w-full bg-slate-900/90 text-white pl-12 pr-4 py-3 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm transition-all">
+                    </div>
+                    <select id="sortSelect" onchange="filterProducts()" class="bg-slate-900/90 text-white px-4 py-3 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm font-medium transition-all">
+                        <option value="popular">Paling Populer</option>
+                        <option value="lowest">Harga Terendah</option>
+                        <option value="highest">Harga Tertinggi</option>
+                    </select>
+                </div>
+
+                <!-- Category Pills -->
+                <div class="flex items-center gap-2 overflow-x-auto mt-3 pt-2 pb-1 scrollbar-none" id="categoryContainer">
+                    <button onclick="setCategory('All')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all bg-cyan-500 text-black shadow-lg shadow-cyan-500/20" data-category="All">Semua Produk</button>
+                    <button onclick="setCategory('Gadget & Gaming')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700/60" data-category="Gadget & Gaming">Gadget & Gaming</button>
+                    <button onclick="setCategory('Smartphone')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700/60" data-category="Smartphone">Smartphone</button>
+                    <button onclick="setCategory('Setup & Accessories')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700/60" data-category="Setup & Accessories">Setup & Aksesoris</button>
+                    <button onclick="setCategory('Audio')" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700/60" data-category="Audio">Audio</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid Section -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight text-white flex items-center space-x-2">
+                    <i data-lucide="grid" class="w-6 h-6 text-cyan-400"></i>
+                    <span id="currentCategoryTitle">Semua Katalog Pilihan</span>
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">Menampilkan produk dengan link afiliasi aktif terverifikasi</p>
+            </div>
+            <div id="productCount" class="text-sm font-medium text-slate-400 bg-cardbg px-3 py-1.5 rounded-lg border border-cardborder">
+                0 Produk
+            </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Dynamic Cards Inserted via JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20">
+            <div class="w-16 h-16 bg-slate-800/80 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 border border-slate-700">
+                <i data-lucide="package-open" class="w-8 h-8 text-cyan-400"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Produk tidak ditemukan</h3>
+            <p class="text-slate-400 text-sm mt-1">Coba gunakan kata kunci lain atau pilih kategori yang berbeda.</p>
+        </div>
+    </main>
+
+    <!-- Stats Modal -->
+    <div id="statsModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+        <div class="bg-cardbg border border-cardborder rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeStatsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Statistik Toko Afiliasi</h3>
+                    <p class="text-xs text-slate-400">Ringkasan performa klik dan komisi</p>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-slate-400">Total Klik Afiliasi</p>
+                        <h4 id="statTotalClicks" class="text-2xl font-bold text-cyan-400 mt-0.5">0</h4>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                        <i data-lucide="mouse-pointer-click" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-slate-400">Estimasi Potensi Komisi</p>
+                        <h4 id="statTotalCommission" class="text-2xl font-bold text-emerald-400 mt-0.5">Rp 0</h4>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                        <i data-lucide="wallet" class="w-5 h-5"></i>
+                    </div>
+                </div>
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-slate-400">Total Produk Dipajang</p>
+                        <h4 id="statTotalProducts" class="text-2xl font-bold text-indigo-400 mt-0.5">0</h4>
+                    </div>
+                    <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                        <i data-lucide="box" class="w-5 h-5"></i>
+                    </div>
+                </div>
+            </div>
+            <button onclick="closeStatsModal()" class="w-full mt-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm transition-all border border-slate-700">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+        <div class="bg-cardbg border border-cardborder rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAddModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Tambah Produk Afiliasi Baru</h3>
+                    <p class="text-xs text-slate-400">Pajang produk instan tanpa bikin konten</p>
+                </div>
+            </div>
+            <form id="addProductForm" onsubmit="handleAddNewProduct(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Produk</label>
+                    <input type="text" id="newTitle" required placeholder="Contoh: Mechanical Keyboard RGB 60%" class="w-full bg-slate-900 text-white px-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Harga (Rupiah)</label>
+                        <input type="number" id="newPrice" required placeholder="299000" class="w-full bg-slate-900 text-white px-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Kategori</label>
+                        <select id="newCategory" class="w-full bg-slate-900 text-white px-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm">
+                            <option value="Gadget & Gaming">Gadget & Gaming</option>
+                            <option value="Smartphone">Smartphone</option>
+                            <option value="Setup & Accessories">Setup & Accessories</option>
+                            <option value="Audio">Audio</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">URL Gambar Produk</label>
+                    <input type="url" id="newImage" required placeholder="https://images.unsplash.com/..." class="w-full bg-slate-900 text-white px-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">URL Link Afiliasi (Shopee/Tokopedia/Dll)</label>
+                    <input type="url" id="newAffLink" required placeholder="https://shope.ee/..." class="w-full bg-slate-900 text-white px-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Deskripsi Singkat / Keunggulan</label>
+                    <textarea id="newDesc" rows="3" required placeholder="Switch Hot-swappable, RGB memukau, baterai tahan lama..." class="w-full bg-slate-900 text-white px-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-cyan-500 text-sm"></textarea>
+                </div>
+                <div class="flex items-center space-x-3 pt-2">
+                    <button type="button" onclick="closeAddModal()" class="flex-1 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm transition-all border border-slate-700">Batal</button>
+                    <button type="submit" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-semibold text-sm transition-all shadow-lg shadow-cyan-500/20">Simpan Produk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="about" class="border-t border-cardborder bg-darkbg/90 mt-16 py-12 text-center text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center">
+                    <i data-lucide="zap" class="w-4 h-4 text-white"></i>
+                </div>
+                <span class="text-lg font-bold text-white tracking-tight">RacunTech Affiliate</span>
+            </div>
+            <p class="max-w-md mx-auto text-xs text-slate-500 mb-6">
+                Platform kurasi produk otomatis tanpa repot bikin konten. Cukup sebar link katalog ini dan nikmati komisi pasif dari setiap transaksi.
+            </p>
+            <p class="text-xs text-slate-600">
+                &copy; 2026 RacunTech Affiliate. All rights reserved. Powered by Minimalist Web Engine.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Initial Products Data (Curated Gadget & Gaming items)
+        let products = [
+            {
+                id: 1,
+                title: "Rexus Mechanical Gaming Keyboard Legion",
+                price: 349000,
+                category: "Gadget & Gaming",
+                image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
+                description: "Keyboard mechanical RGB hot-swappable dengan switch responsif untuk gaming optimal.",
+                affLink: "https://shopee.co.id",
+                clicks: 42,
+                popular: true
+            },
+            {
+                id: 2,
+                title: "Logitech G Pro Wireless Gaming Mouse",
+                price: 899000,
+                category: "Gadget & Gaming",
+                image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80",
+                description: "Sensor HERO 25K, super ringan, dirancang khusus untuk turnamen eSports profesional.",
+                affLink: "https://shopee.co.id",
+                clicks: 85,
+                popular: true
+            },
+            {
+                id: 3,
+                title: "HyperX Cloud Stinger Gaming Headset",
+                price: 549000,
+                category: "Audio",
+                image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=600&q=80",
+                description: "Suara jernih berbalut bantalan busa memori yang empuk untuk sesi gaming seharian.",
+                affLink: "https://shopee.co.id",
+                clicks: 61,
+                popular: true
+            },
+            {
+                id: 4,
+                title: "Smartphone Gaming Black Shark Pro",
+                price: 4799000,
+                category: "Smartphone",
+                image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+                description: "Performa monster Snapdragon generasi terbaru dengan sistem pendingin liquid canggih.",
+                affLink: "https://shopee.co.id",
+                clicks: 34,
+                popular: false
+            },
+            {
+                id: 5,
+                title: "RGB LED Desk Light Ambient Strip",
+                price: 125000,
+                category: "Setup & Accessories",
+                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
+                description: "Percantik meja setup kamu dengan lampu LED sync musik & kontrol aplikasi.",
+                affLink: "https://shopee.co.id",
+                clicks: 53,
+                popular: true
+            },
+            {
+                id: 6,
+                title: "Baseus Powerbank Fast Charging 20000mAh",
+                price: 310000,
+                category: "Setup & Accessories",
+                image: "https://images.unsplash.com/photo-1609592424104-94d4a434d707?auto=format&fit=crop&w=600&q=80",
+                description: "Kapasitas besar 65W PD, aman untuk cas laptop maupun smartphone secara bersamaan.",
+                affLink: "https://shopee.co.id",
+                clicks: 28,
+                popular: false
+            },
+            {
+                id: 7,
+                title: "TWS Earbuds Low Latency Gaming",
+                price: 189000,
+                category: "Audio",
+                image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+                description: "Delay super rendah 45ms, mode ganda musik & game dengan lampu indikator keren.",
+                affLink: "https://shopee.co.id",
+                clicks: 49,
+                popular: false
+            },
+            {
+                id: 8,
+                title: "Ergonomic Vertical Mouse Wireless",
+                price: 215000,
+                category: "Setup & Accessories",
+                image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80",
+                description: "Mencegah pegal pergelangan tangan (carpal tunnel) saat bekerja atau nge-game lama.",
+                affLink: "https://shopee.co.id",
+                clicks: 19,
+                popular: false
+            }
+        ];
+
+        let currentCategory = 'All';
+
+        // Initialize Lucide icons on load
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderProducts(products);
+        });
+
+        // Format Rupiah currency
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+        }
+
+        // Filter products by category, search text, and sort
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortSelect').value;
+
+            let filtered = products.filter(item => {
+                const matchesCategory = currentCategory === 'All' || item.category === currentCategory;
+                const matchesSearch = item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+
+            // Sorting logic
+            if (sortBy === 'lowest') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'highest') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'popular') {
+                filtered.sort((a, b) => b.clicks - a.clicks);
+            }
+
+            renderProducts(filtered);
+        }
+
+        // Set active category tab
+        function setCategory(category) {
+            currentCategory = category;
+            
+            // Update button styles
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.className = "category-btn px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all bg-cyan-500 text-black shadow-lg shadow-cyan-500/20";
+                } else {
+                    btn.className = "category-btn px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700/60";
+                }
+            });
+
+            document.getElementById('currentCategoryTitle').innerText = category === 'All' ? 'Semua Katalog Pilihan' : category;
+            filterProducts();
+        }
+
+        // Render products into grid
+        function renderProducts(list) {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            const countBadge = document.getElementById('productCount');
+
+            countBadge.innerText = `${list.length} Produk`;
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = list.map(item => `
+                <div class="bg-cardbg rounded-2xl border border-cardborder overflow-hidden hover:border-cyan-500/50 transition-all duration-300 flex flex-col group shadow-lg hover:shadow-cyan-500/10">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-900">
+                        <img src="${item.image}" alt="${item.title}" onerror="this.src='https://placehold.co/600x450/111827/00f2fe?text=RacunTech'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-cyan-400 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-slate-800">
+                            ${item.category}
+                        </span>
+                        ${item.popular ? '<span class="absolute top-3 right-3 bg-emerald-500/90 text-black text-[10px] font-extrabold px-2 py-0.5 rounded-md flex items-center space-x-1"><i data-lucide="trending-up" class="w-3 h-3"></i><span>HOT</span></span>' : ''}
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="font-bold text-white text-sm sm:text-base line-clamp-2 group-hover:text-cyan-400 transition-colors mb-2">${item.title}</h3>
+                        <p class="text-slate-400 text-xs line-clamp-2 mb-4 flex-grow">${item.description}</p>
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-800/80">
+                            <div>
+                                <span class="text-[10px] text-slate-500 block">Harga Estimasi</span>
+                                <span class="text-base font-extrabold text-cyan-400">${formatRupiah(item.price)}</span>
+                            </div>
+                            <a href="${item.affLink}" target="_blank" onclick="trackClick(${item.id})" class="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs glow-button transition-all">
+                                <span>Beli Sekarang</span>
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Track clicks for affiliate analytics
+        function trackClick(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                product.clicks += 1;
+            }
+        }
+
+        // Modal Handlers
+        function openStatsModal() {
+            const totalClicks = products.reduce((acc, curr) => acc + curr.clicks, 0);
+            // Estimasi komisi rata-rata 5% dari harga produk yang diklik
+            const estCommission = products.reduce((acc, curr) => acc + (curr.clicks * (curr.price * 0.05)), 0);
+
+            document.getElementById('statTotalClicks').innerText = totalClicks;
+            document.getElementById('statTotalCommission').innerText = formatRupiah(estCommission);
+            document.getElementById('statTotalProducts').innerText = products.length;
+
+            const modal = document.getElementById('statsModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeStatsModal() {
+            const modal = document.getElementById('statsModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function openAddModal() {
+            const modal = document.getElementById('addModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeAddModal() {
+            const modal = document.getElementById('addModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Handle Add New Product Form Submission
+        function handleAddNewProduct(event) {
+            event.preventDefault();
+            const title = document.getElementById('newTitle').value;
+            const price = Number(document.getElementById('newPrice').value);
+            const category = document.getElementById('newCategory').value;
+            const image = document.getElementById('newImage').value;
+            const affLink = document.getElementById('newAffLink').value;
+            const description = document.getElementById('newDesc').value;
+
+            const newProduct = {
+                id: products.length + 1,
+                title,
+                price,
+                category,
+                image,
+                description,
+                affLink,
+                clicks: 0,
+                popular: true
+            };
+
+            products.unshift(newProduct);
+            filterProducts();
+            closeAddModal();
+            document.getElementById('addProductForm').reset();
+        }
+    </script>
+</body>
+</html>
+```

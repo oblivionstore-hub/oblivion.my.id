@@ -3,27 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novelku & Komiku - Perpustakaan Terlengkap</title>
+    <title>Novelku & Komiku - Perpustakaan Hangat</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        creamBg: '#fdfbf7',
+                        cardWhite: '#ffffff',
+                        orangeAcc: '#f97316',
+                        brownText: '#451a03',
+                        subText: '#78716c'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans pb-16">
+<body class="bg-creamBg text-brownText min-h-screen font-sans pb-16">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3">
+    <!-- Header / Navbar (Nuansa Putih, Oranye, Cokelat) -->
+    <header class="sticky top-0 z-50 bg-cardWhite/95 backdrop-blur-md border-b border-orange-100 px-4 py-3 shadow-sm">
         <div class="max-w-md mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-2 cursor-pointer" onclick="goHome()">
-                <div class="bg-indigo-600 p-2 rounded-xl text-white font-black text-base shadow-lg shadow-indigo-600/30">
-                    <i class="fa-solid fa-book-bookmark"></i>
+            <div class="flex items-center space-x-2.5 cursor-pointer" onclick="goHome()">
+                <div class="bg-orangeAcc p-2 rounded-xl text-white font-black text-base shadow-md shadow-orange-500/20">
+                    <i class="fa-solid fa-book-open"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-sm text-white leading-tight">Novelku & Komiku</h1>
-                    <p class="text-[10px] text-indigo-400">45+ Koleksi Novel & Komik Pilihan</p>
+                    <h1 class="font-bold text-sm text-brownText leading-tight">Novelku & Komiku</h1>
+                    <p class="text-[10px] text-orangeAcc font-medium">Bacaan Seru & Berkualitas</p>
                 </div>
             </div>
-            <button onclick="openAgeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 flex items-center space-x-1">
-                <i class="fa-solid fa-user-shield text-indigo-400"></i>
-                <span id="ageBadge">Semua Umur</span>
+            <button onclick="openAgeModal()" class="bg-orange-50 hover:bg-orange-100 text-brownText text-xs px-3 py-1.5 rounded-xl border border-orange-200 flex items-center space-x-1.5 transition">
+                <i class="fa-solid fa-shield-halved text-orangeAcc"></i>
+                <span id="ageBadge" class="font-semibold">Semua Umur</span>
             </button>
         </div>
     </header>
@@ -33,100 +48,120 @@
         <!-- Search Input -->
         <div class="mb-3">
             <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-subText">
                     <i class="fa-solid fa-magnifying-glass text-xs"></i>
                 </span>
-                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Cari dari 45+ judul cerita..." 
-                    class="w-full bg-slate-900 text-xs text-slate-200 pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-indigo-500 transition">
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Cari judul novel atau komik pilihan..." 
+                    class="w-full bg-cardWhite text-xs text-brownText pl-10 pr-4 py-3 rounded-2xl border border-orange-200 focus:outline-none focus:border-orangeAcc shadow-sm transition">
             </div>
         </div>
 
         <!-- Genre Filter Pills -->
         <div class="flex space-x-2 overflow-x-auto pb-2 no-scrollbar mb-3">
-            <button onclick="filterGenre('Semua', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-600 text-white transition">Semua</button>
-            <button onclick="filterGenre('Action', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Action</button>
-            <button onclick="filterGenre('Isekai', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Isekai</button>
-            <button onclick="filterGenre('Romance', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Romance</button>
-            <button onclick="filterGenre('Fantasy', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Fantasy</button>
-            <button onclick="filterGenre('Horror', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Horror</button>
+            <button onclick="filterGenre('Semua', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-orangeAcc text-white shadow-sm transition">Semua</button>
+            <button onclick="filterGenre('Action', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Action</button>
+            <button onclick="filterGenre('Isekai', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Isekai</button>
+            <button onclick="filterGenre('Romance', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Romance</button>
+            <button onclick="filterGenre('Fantasy', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Fantasy</button>
+            <button onclick="filterGenre('Horror', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Horror</button>
         </div>
 
         <!-- Book Grid -->
-        <div id="bookGrid" class="grid grid-cols-2 gap-2.5"></div>
+        <div id="bookGrid" class="grid grid-cols-2 gap-3"></div>
     </main>
 
     <!-- Reader View -->
     <main id="readerView" class="max-w-md mx-auto px-3 pt-3 hidden">
-        <button onclick="goHome()" class="mb-3 bg-slate-900 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-800 text-xs flex items-center space-x-1.5">
-            <i class="fa-solid fa-arrow-left"></i>
+        <button onclick="goHome()" class="mb-3 bg-cardWhite text-brownText hover:bg-orange-50 px-3 py-2 rounded-xl border border-orange-200 text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition">
+            <i class="fa-solid fa-arrow-left text-orangeAcc"></i>
             <span>Kembali ke Rak Buku</span>
         </button>
 
-        <div class="bg-slate-900 rounded-2xl border border-slate-800 p-3 shadow-lg">
-            <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2">
+        <div class="bg-cardWhite rounded-2xl border border-orange-200 p-4 shadow-sm">
+            <div class="flex justify-between items-center mb-3 border-b border-orange-100 pb-2">
                 <div>
-                    <h2 id="readTitle" class="text-xs font-bold text-white">Judul</h2>
-                    <p id="readPageIndicator" class="text-[10px] text-indigo-400">Halaman 1</p>
+                    <h2 id="readTitle" class="text-xs font-bold text-brownText">Judul</h2>
+                    <p id="readPageIndicator" class="text-[10px] text-orangeAcc font-medium">Halaman 1</p>
                 </div>
-                <div class="flex space-x-1">
-                    <button onclick="changePage(-1)" class="bg-slate-800 text-white px-3 py-1.5 rounded-lg text-xs"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button onclick="changePage(1)" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs"><i class="fa-solid fa-chevron-right"></i></button>
+                <div class="flex space-x-1.5">
+                    <button onclick="changePage(-1)" class="bg-orange-50 text-brownText hover:bg-orange-100 px-3 py-1.5 rounded-xl text-xs font-bold border border-orange-200"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="changePage(1)" class="bg-orangeAcc text-white hover:bg-orange-600 px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
 
-            <div id="pageContainer" class="bg-slate-950 rounded-xl min-h-[420px] flex flex-col items-center justify-center p-3 border border-slate-800 text-center"></div>
+            <div id="pageContainer" class="bg-amber-50/50 rounded-xl min-h-[420px] flex flex-col items-center justify-center p-3 border border-orange-100 text-center"></div>
 
-            <div class="flex justify-between items-center mt-3 pt-2 border-t border-slate-800">
-                <button onclick="changePage(-1)" class="text-[11px] text-slate-400"><i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya</button>
-                <span id="pageCounterFooter" class="text-[10px] text-slate-500">Hal 1</span>
-                <button onclick="changePage(1)" class="text-[11px] text-indigo-400">Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
+            <div class="flex justify-between items-center mt-3 pt-2 border-t border-orange-100">
+                <button onclick="changePage(-1)" class="text-[11px] text-subText font-medium hover:text-brownText"><i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya</button>
+                <span id="pageCounterFooter" class="text-[10px] text-subText font-semibold">Hal 1</span>
+                <button onclick="changePage(1)" class="text-[11px] text-orangeAcc font-bold hover:underline">Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
             </div>
         </div>
     </main>
 
     <!-- Modal Filter Umur -->
-    <div id="ageModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center px-4">
-        <div class="bg-slate-900 w-full max-w-xs rounded-2xl border border-slate-800 p-4">
-            <h3 class="text-sm font-bold text-white mb-2">Pilih Batas Usia Pembaca</h3>
-            <div class="space-y-2 mt-3">
-                <button onclick="setAgeFilter('Semua')" class="w-full text-left bg-slate-800 p-2.5 rounded-xl text-xs text-slate-200">Semua Umur</button>
-                <button onclick="setAgeFilter('13+')" class="w-full text-left bg-slate-800 p-2.5 rounded-xl text-xs text-slate-200">Remaja (13+)</button>
-                <button onclick="setAgeFilter('18+')" class="w-full text-left bg-slate-800 p-2.5 rounded-xl text-xs text-slate-200">Dewasa (18+)</button>
+    <div id="ageModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center px-4">
+        <div class="bg-cardWhite w-full max-w-xs rounded-2xl border border-orange-200 p-4 shadow-xl">
+            <h3 class="text-sm font-bold text-brownText mb-1">Pilih Batas Usia Pembaca</h3>
+            <p class="text-[11px] text-subText mb-3">Sesuaikan kategori bacaan dengan usia kamu.</p>
+            <div class="space-y-2">
+                <button onclick="setAgeFilter('Semua')" class="w-full text-left bg-orange-50 hover:bg-orange-100 p-2.5 rounded-xl text-xs font-semibold text-brownText border border-orange-100">Semua Umur</button>
+                <button onclick="setAgeFilter('13+')" class="w-full text-left bg-orange-50 hover:bg-orange-100 p-2.5 rounded-xl text-xs font-semibold text-brownText border border-orange-100">Remaja (13+)</button>
+                <button onclick="setAgeFilter('18+')" class="w-full text-left bg-orange-50 hover:bg-orange-100 p-2.5 rounded-xl text-xs font-semibold text-brownText border border-orange-100">Dewasa (18+)</button>
             </div>
-            <button onclick="closeAgeModal()" class="w-full mt-4 bg-slate-800 text-slate-400 text-xs py-2 rounded-xl">Tutup</button>
+            <button onclick="closeAgeModal()" class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-subText text-xs font-semibold py-2.5 rounded-xl">Tutup</button>
         </div>
     </div>
 
-    <!-- Database 45 Judul Terstruktur -->
+    <!-- Database Cerita Berkualitas (Novel & Komik Berkelanjutan) -->
     <script>
         const libraryData = [
-            // --- KOMIK ACTION (5 Judul x 30 Lembar) ---
-            { id: 1, title: "Shadow Hunter", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act1_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
-            { id: 2, title: "Blade of Vengeance", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act2_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
-            { id: 3, title: "Cybernetic Riot", type: "Komik", genre: "Action", age: "18+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act3_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
-            { id: 4, title: "Apex Striker", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act4_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
-            { id: 5, title: "Ultimate Brawler", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act5_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
-
-            // --- NOVEL ACTION (4 Judul x 25 Lembar) ---
-            { id: 6, title: "Kronik Pasukan Khusus", type: "Novel", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nLedakan dahsyat mengguncang markas musuh di tengah malam. Pasukan khusus bergerak senyap menyusup ke garis pertahanan terakhir...` })) },
-            { id: 7, title: "Operasi Garis Depan", type: "Novel", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nPeluru melesat cepat di atas kepala. Pertempuran tak terhindarkan saat misi penyelamatan sandera dimulai...` })) },
-            { id: 8, title: "Medan Perang Baja", type: "Novel", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nMesin tank bergemuruh membelah debu padang pasir. Strategi militer diuji ketat dalam pertempuran ini...` })) },
-            { id: 9, title: "Misi Rahasia Hitam", type: "Novel", genre: "Action", age: "18+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nBayangan malam menjadi saksi penyusupan agen rahasia ke jantung pertahanan sindikat kriminal global...` })) },
-
-            // --- KOMIK ISEKAI (5 Judul x 30 Lembar) ---
-            { id: 10, title: "Reborn as Strongest Mage", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk1_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
-            { id: 11, title: "The Hero Summoned", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk2_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
-            { id: 12, title: "Slime Monarch", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk3_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
-            { id: 13, title: "Dungeon Life in Another World", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk4_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
-            { id: 14, title: "Otome Game Villainess", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk5_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
-
-            // --- NOVEL ISEKAI (4 Judul x 25 Lembar) ---
-            { id: 15, title: "Terlempar ke Dimensi Lain", type: "Novel", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nSinar terang menyilaukan mata saat aku membuka kesadaran di dunia asing penuh sihir dan naga terbang...` })) },
-            { id: 16, title: "Pangeran ke-13 di Dunia Fantasi", type: "Novel", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nMenjadi pangeran buangan di kerajaan sihir bukanlah hal mudah, tapi dengan pengetahuan modernku, aku bisa bertahan...` })) },
-            { id: 17, title: "Petualangan Petani Legendaris", type: "Novel", genre: "Isekai", age: "Semua", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nAlih-alih jadi pahlawan, aku malah bereinkarnasi menjadi petani dengan skill cheat tanaman ajaib...` })) },
-            { id: 18, title: "Guild Master Terkuat", type: "Novel", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nMembangun guild dari nol di dunia fantasi berbahaya bersama para petualang hebat...` })) },
-
-            // (Dan seterusnya hingga total 45 judul komplit untuk Romance, Fantasy, & Horror...)
+            {
+                id: 1,
+                title: "Bangkitnya Ksatria Naga Api",
+                type: "Komik",
+                genre: "Action",
+                age: "13+",
+                cover: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80",
+                totalPages: 5,
+                pages: [
+                    { type: 'text', title: 'Panel 1: Serangan Fajar', content: 'Di tengah reruntuhan benteng tua, bara api menyala dari pedang sang ksatria muda. Lawannya adalah sesosok jenderal iblis bertanduk hitam.' },
+                    { type: 'text', title: 'Panel 2: Bentrokan Pedang', content: 'Kilas balik cahaya merah menyambar cepat. Suara dentingan baja beradu memecah keheningan pagi di lembah kematian.' },
+                    { type: 'text', title: 'Panel 3: Kekuatan Tersembunyi', content: 'Napas sang ksatria mulai memburu. Segel naga di lengan kanannya perlahan terbuka, memancarkan energi panas yang luar biasa.' },
+                    { type: 'text', title: 'Panel 4: Serangan Pemungkas', content: 'Dengan satu tebasan terakhir berkecepatan tinggi, api melingkar membentuk wujud kepala naga raksasa!' },
+                    { type: 'text', title: 'Panel 5: Kemenangan Pertama', content: 'Sang jenderal iblis terpental dan ambruk. Pertempuran pertama dimenangkan, namun perjalanan masih sangat panjang.' }
+                ]
+            },
+            {
+                id: 2,
+                title: "Catatan Harian Penyihir Isekai",
+                type: "Novel",
+                genre: "Isekai",
+                age: "Semua",
+                cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80",
+                totalPages: 5,
+                pages: [
+                    { type: 'text', title: 'Bab 1: Hari Pertama di Dunia Baru', content: 'Hari ini aku terbangun di atas hamparan rumput biru bercahaya. Tidak ada lagi kamar kos atau tumpukan tugas kuliah, yang ada hanyalah hutan misterius dengan pohon setinggi langit.' },
+                    { type: 'text', title: 'Bab 2: Menemukan Buku Sihir Kuno', content: 'Saat menyusuri jalan setapak, aku menemukan sebuah buku bersampul kulit hijau tua di dalam gua batu. Ketika kubuka, halaman-halamannya bersinar terang dan meresap ke dalam ingatanku.' },
+                    { type: 'text', title: 'Bab 3: Bertemu Makhluk Kecil Bernama Pixie', content: 'Seekor peri kecil bersayap kristal tiba-tiba muncul dan mengejarku sambil marah-marah karena aku tidak sengaja menduduki rumah jamurnya.' },
+                    { type: 'text', title: 'Bab 4: Mantra Pertama yang Berhasil', content: 'Berbekal instruksi dari buku kuno, aku mencoba mengarahkan tangan ke arah ranting pohon kering. "Lumen!" seruku, dan sulur api kecil berhasil tercipta di ujung jariku.' },
+                    { type: 'text', title: 'Bab 5: Memulai Petualangan Menuju Kota', content: 'Bersama si pixie kecil, aku melangkah meninggalkan hutan sunyi menuju kota sihir pertama untuk mencari cara kembali—atau mungkin, menikmati hidup baru ini.' }
+                ]
+            },
+            {
+                id: 3,
+                title: "Janji Di Bawah Senja",
+                type: "Novel",
+                genre: "Romance",
+                age: "Semua",
+                cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&q=80",
+                totalPages: 3,
+                pages: [
+                    { type: 'text', title: 'Bab 1: Pertemuan Tak Terduga', content: 'Hujan deras turun tiba-tiba di halte bus sekolah. Hanya ada aku dan dirinya, berdiri berdampingan dalam canggung yang manis.' },
+                    { type: 'text', title: 'Bab 2: Secangkir Cokelat Hangat', content: 'Ia menyodorkan kaleng minuman cokelat hangat dari mesin otomatis. Senyum kecilnya membuat hari yang dingin terasa begitu hangat.' },
+                    { type: 'text', title: 'Bab 3: Langit Senja Kita', content: 'Sejak hari itu, halte kecil ini menjadi saksi bisu ribuan cerita tawa dan mimpi yang kami rajut bersama hingga senja menjelang.' }
+                ]
+            }
         ];
 
         let activeGenre = 'Semua';
@@ -143,26 +178,26 @@
                 return matchGenre && matchAge;
             });
             if(filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-2 text-center py-12 text-xs text-slate-500">Tidak ada cerita ditemukan.</div>`;
+                grid.innerHTML = `<div class="col-span-2 text-center py-12 text-xs text-subText">Tidak ada cerita ditemukan untuk kategori ini.</div>`;
                 return;
             }
             filtered.forEach(book => {
                 const card = document.createElement('div');
-                card.className = 'bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex flex-col justify-between shadow-md';
+                card.className = 'bg-cardWhite rounded-2xl border border-orange-100 overflow-hidden flex flex-col justify-between shadow-sm hover:border-orange-300 transition';
                 card.innerHTML = `
                     <div>
-                        <div class="relative w-full aspect-[3/4] bg-slate-950 overflow-hidden">
+                        <div class="relative w-full aspect-[3/4] bg-orange-50 overflow-hidden">
                             <img src="${book.cover}" alt="${book.title}" class="w-full h-full object-cover">
-                            <span class="absolute top-1.5 left-1.5 bg-black/70 text-[9px] text-indigo-400 font-bold px-2 py-0.5 rounded border border-slate-800">${book.type}</span>
-                            <span class="absolute top-1.5 right-1.5 bg-indigo-600 text-[9px] text-white font-bold px-1.5 py-0.5 rounded">${book.age}</span>
+                            <span class="absolute top-2 left-2 bg-brownText/80 backdrop-blur-sm text-[9px] text-white font-bold px-2 py-0.5 rounded-md">${book.type}</span>
+                            <span class="absolute top-2 right-2 bg-orangeAcc text-[9px] text-white font-bold px-2 py-0.5 rounded-md">${book.age}</span>
                         </div>
-                        <div class="p-2.5">
-                            <h3 class="text-xs font-semibold text-slate-200 line-clamp-2 mb-1">${book.title}</h3>
-                            <p class="text-[10px] text-slate-400">${book.genre} • ${book.totalPages} Hal</p>
+                        <div class="p-3">
+                            <h3 class="text-xs font-bold text-brownText line-clamp-2 mb-1">${book.title}</h3>
+                            <p class="text-[10px] text-subText font-medium">Genre: ${book.genre}</p>
                         </div>
                     </div>
-                    <div class="p-2.5 pt-0">
-                        <button onclick="openReader(${book.id})" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold py-1.5 rounded-lg transition shadow-sm">
+                    <div class="p-3 pt-0">
+                        <button onclick="openReader(${book.id})" class="w-full bg-orangeAcc hover:bg-orange-600 text-white text-[11px] font-bold py-2 rounded-xl transition shadow-sm">
                             Baca Cerita
                         </button>
                     </div>
@@ -174,11 +209,11 @@
         function filterGenre(genre, btnElement) {
             activeGenre = genre;
             document.querySelectorAll('.genre-btn').forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white');
-                btn.classList.add('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                btn.classList.remove('bg-orangeAcc', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-cardWhite', 'text-brownText', 'border', 'border-orange-200');
             });
-            btnElement.classList.remove('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
-            btnElement.classList.add('bg-indigo-600', 'text-white');
+            btnElement.classList.remove('bg-cardWhite', 'text-brownText', 'border', 'border-orange-200');
+            btnElement.classList.add('bg-orangeAcc', 'text-white', 'shadow-sm');
             renderCatalog(libraryData);
         }
 
@@ -209,18 +244,12 @@
             document.getElementById('readPageIndicator').innerText = `Halaman ${currentPage + 1} dari ${currentBook.totalPages}`;
             document.getElementById('pageCounterFooter').innerText = `Halaman ${currentPage + 1} / ${currentBook.totalPages}`;
 
-            if(pageData.type === 'image') {
-                container.innerHTML = `
-                    <img src="${pageData.url}" class="max-h-[480px] object-contain rounded-lg shadow-md mb-2" alt="Manga Page">
-                    <p class="text-[10px] text-slate-400 italic">${pageData.desc}</p>
-                `;
-            } else {
-                container.innerHTML = `
-                    <div class="p-2 text-xs text-slate-200 leading-relaxed whitespace-pre-line text-left">
-                        ${pageData.content}
-                    </div>
-                `;
-            }
+            container.innerHTML = `
+                <div class="p-4 text-left w-full">
+                    <h4 class="text-xs font-bold text-orangeAcc mb-2 uppercase tracking-wide">${pageData.title || 'Halaman ' + (currentPage + 1)}</h4>
+                    <p class="text-xs text-brownText leading-relaxed whitespace-pre-line">${pageData.content}</p>
+                </div>
+            `;
         }
 
         function changePage(direction) {

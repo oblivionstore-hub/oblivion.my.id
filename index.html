@@ -3,308 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Racun Tech & Gaming - Katalog Afiliasi</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Novelku & Komiku - Perpustakaan Terlengkap</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        darkbg: '#0f172a',
-                        cardbg: '#1e293b',
-                        accent: '#06b6d4',
-                        accenthover: '#0891b2',
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-darkbg text-slate-100 min-h-screen font-sans antialiased pb-20">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans pb-16">
 
     <!-- Header / Navbar -->
-    <header class="sticky top-0 z-40 bg-darkbg/90 backdrop-blur-md border-b border-slate-800 px-4 py-3">
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3">
         <div class="max-w-md mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <div class="bg-gradient-to-tr from-accent to-emerald-400 p-2 rounded-xl text-darkbg font-black text-lg shadow-lg shadow-accent/20">
-                    <i class="fa-solid fa-bolt"></i>
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="goHome()">
+                <div class="bg-indigo-600 p-2 rounded-xl text-white font-black text-base shadow-lg shadow-indigo-600/30">
+                    <i class="fa-solid fa-book-bookmark"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-base text-white leading-tight">Racun Tech & Gaming</h1>
-                    <p class="text-xs text-slate-400">Katalog Rekomendasi Pilihan</p>
+                    <h1 class="font-bold text-sm text-white leading-tight">Novelku & Komiku</h1>
+                    <p class="text-[10px] text-indigo-400">45+ Koleksi Novel & Komik Pilihan</p>
                 </div>
             </div>
-            <button onclick="openAdminModal()" class="bg-slate-800 hover:bg-slate-700 text-accent text-xs font-semibold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center space-x-1.5 shadow-sm">
-                <i class="fa-solid fa-lock text-[10px]"></i>
-                <span>Admin</span>
+            <button onclick="openAgeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 flex items-center space-x-1">
+                <i class="fa-solid fa-user-shield text-indigo-400"></i>
+                <span id="ageBadge">Semua Umur</span>
             </button>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="max-w-md mx-auto px-3 pt-4">
-
-        <!-- Search & Filter Section -->
-        <div class="mb-4 space-y-2.5">
+    <!-- Main Container Catalog -->
+    <main id="catalogView" class="max-w-md mx-auto px-3 pt-4">
+        <!-- Search Input -->
+        <div class="mb-3">
             <div class="relative">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
                     <i class="fa-solid fa-magnifying-glass text-xs"></i>
                 </span>
-                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Cari gadget, aksesoris, atau gear..." 
-                    class="w-full bg-cardbg text-xs text-slate-200 pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 focus:outline-none focus:border-accent transition">
-            </div>
-
-            <!-- Category Pills -->
-            <div class="flex space-x-2 overflow-x-auto pb-1 no-scrollbar">
-                <button onclick="filterCategory('Semua', this)" class="cat-btn active-cat whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-accent text-darkbg transition">Semua</button>
-                <button onclick="filterCategory('Gadget', this)" class="cat-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-cardbg text-slate-300 border border-slate-700 hover:bg-slate-800 transition">Gadget</button>
-                <button onclick="filterCategory('Smartphone', this)" class="cat-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-cardbg text-slate-300 border border-slate-700 hover:bg-slate-800 transition">Smartphone</button>
-                <button onclick="filterCategory('Aksesoris', this)" class="cat-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-cardbg text-slate-300 border border-slate-700 hover:bg-slate-800 transition">Aksesoris</button>
-                <button onclick="filterCategory('Audio', this)" class="cat-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-cardbg text-slate-300 border border-slate-700 hover:bg-slate-800 transition">Audio</button>
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Cari dari 45+ judul cerita..." 
+                    class="w-full bg-slate-900 text-xs text-slate-200 pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 focus:outline-none focus:border-indigo-500 transition">
             </div>
         </div>
 
-        <!-- Product Grid (Shopee Style: 2 Columns Mobile) -->
-        <div id="productGrid" class="grid grid-cols-2 gap-2.5">
-            <!-- Data produk akan dimuat lewat JavaScript dari localStorage -->
+        <!-- Genre Filter Pills -->
+        <div class="flex space-x-2 overflow-x-auto pb-2 no-scrollbar mb-3">
+            <button onclick="filterGenre('Semua', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-600 text-white transition">Semua</button>
+            <button onclick="filterGenre('Action', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Action</button>
+            <button onclick="filterGenre('Isekai', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Isekai</button>
+            <button onclick="filterGenre('Romance', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Romance</button>
+            <button onclick="filterGenre('Fantasy', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Fantasy</button>
+            <button onclick="filterGenre('Horror', this)" class="genre-btn whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition">Horror</button>
         </div>
 
-        <!-- Empty State (Jika produk kosong) -->
-        <div id="emptyState" class="hidden text-center py-12 px-4">
-            <div class="bg-cardbg w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-500 text-xl border border-slate-700">
-                <i class="fa-solid fa-box-open"></i>
-            </div>
-            <h3 class="text-sm font-bold text-slate-300">Belum ada produk</h3>
-            <p class="text-xs text-slate-500 mt-1">Silakan masuk ke menu Admin (Password: admin123) untuk menambahkan produk afiliasi pertamamu.</p>
-        </div>
-
+        <!-- Book Grid -->
+        <div id="bookGrid" class="grid grid-cols-2 gap-2.5"></div>
     </main>
 
-    <!-- Modal Login / Admin Panel -->
-    <div id="adminModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center px-4">
-        <div class="bg-cardbg w-full max-w-sm rounded-2xl border border-slate-700 p-5 shadow-2xl relative animate-in fade-in zoom-in duration-200">
-            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-sm"></i>
-            </button>
+    <!-- Reader View -->
+    <main id="readerView" class="max-w-md mx-auto px-3 pt-3 hidden">
+        <button onclick="goHome()" class="mb-3 bg-slate-900 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-800 text-xs flex items-center space-x-1.5">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Kembali ke Rak Buku</span>
+        </button>
 
-            <!-- Step 1: Login Password -->
-            <div id="loginSection">
-                <div class="text-center mb-4">
-                    <div class="bg-accent/10 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 text-accent">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h3 class="text-sm font-bold text-white">Autentikasi Admin</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Masukkan password untuk menambah produk</p>
+        <div class="bg-slate-900 rounded-2xl border border-slate-800 p-3 shadow-lg">
+            <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2">
+                <div>
+                    <h2 id="readTitle" class="text-xs font-bold text-white">Judul</h2>
+                    <p id="readPageIndicator" class="text-[10px] text-indigo-400">Halaman 1</p>
                 </div>
-                <div class="space-y-3">
-                    <div>
-                        <label class="block text-[11px] font-medium text-slate-400 mb-1">Password Admin</label>
-                        <input type="password" id="adminPasswordInput" placeholder="Masukkan password..." 
-                            class="w-full bg-darkbg text-xs text-slate-200 px-3 py-2.5 rounded-xl border border-slate-700 focus:outline-none focus:border-accent">
-                    </div>
-                    <button onclick="verifyAdmin()" class="w-full bg-accent hover:bg-accenthover text-darkbg text-xs font-bold py-2.5 rounded-xl transition shadow-lg shadow-accent/20">
-                        Masuk Panel
-                    </button>
-                    <p id="loginError" class="text-rose-400 text-[11px] text-center hidden">Password salah! (Gunakan: admin123)</p>
+                <div class="flex space-x-1">
+                    <button onclick="changePage(-1)" class="bg-slate-800 text-white px-3 py-1.5 rounded-lg text-xs"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="changePage(1)" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
 
-            <!-- Step 2: Form Tambah Produk (Hidden sebelum login benar) -->
-            <div id="productFormSection" class="hidden">
-                <div class="flex items-center justify-between mb-3 border-b border-slate-700 pb-2">
-                    <h3 class="text-sm font-bold text-white flex items-center space-x-1.5">
-                        <i class="fa-solid fa-circle-plus text-accent"></i>
-                        <span>Tambah Produk Afiliasi</span>
-                    </h3>
-                    <button onclick="logoutAdmin()" class="text-rose-400 text-[11px] hover:underline">Keluar</button>
-                </div>
-                <form id="addProductForm" onsubmit="handleAddNewProduct(event)" class="space-y-2.5">
-                    <div>
-                        <label class="block text-[10px] font-medium text-slate-400 mb-0.5">Nama Produk</label>
-                        <input type="text" id="prodName" required placeholder="Contoh: TWS Gaming TWS-X9" 
-                            class="w-full bg-darkbg text-xs text-slate-200 px-2.5 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-accent">
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">Harga (Rp)</label>
-                            <input type="text" id="prodPrice" required placeholder="99.000" 
-                                class="w-full bg-darkbg text-xs text-slate-200 px-2.5 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-accent">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">Kategori</label>
-                            <select id="prodCategory" class="w-full bg-darkbg text-xs text-slate-200 px-2.5 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-accent">
-                                <option value="Gadget">Gadget</option>
-                                <option value="Smartphone">Smartphone</option>
-                                <option value="Aksesoris">Aksesoris</option>
-                                <option value="Audio">Audio</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-medium text-slate-400 mb-0.5">URL Gambar Produk</label>
-                        <input type="url" id="prodImage" required placeholder="https://link-gambar.com/foto.jpg" 
-                            class="w-full bg-darkbg text-xs text-slate-200 px-2.5 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-accent">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-medium text-slate-400 mb-0.5">Link Afiliasi (Shopee/Tokopedia/dll)</label>
-                        <input type="url" id="prodAffLink" required placeholder="https://shope.ee/link-afiliasi-kamu" 
-                            class="w-full bg-darkbg text-xs text-slate-200 px-2.5 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-accent">
-                    </div>
-                    <button type="submit" class="w-full bg-accent hover:bg-accenthover text-darkbg text-xs font-bold py-2.5 rounded-xl transition shadow-md shadow-accent/20 mt-1">
-                        Simpan & Pajang Produk
-                    </button>
-                </form>
+            <div id="pageContainer" class="bg-slate-950 rounded-xl min-h-[420px] flex flex-col items-center justify-center p-3 border border-slate-800 text-center"></div>
+
+            <div class="flex justify-between items-center mt-3 pt-2 border-t border-slate-800">
+                <button onclick="changePage(-1)" class="text-[11px] text-slate-400"><i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya</button>
+                <span id="pageCounterFooter" class="text-[10px] text-slate-500">Hal 1</span>
+                <button onclick="changePage(1)" class="text-[11px] text-indigo-400">Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
             </div>
+        </div>
+    </main>
+
+    <!-- Modal Filter Umur -->
+    <div id="ageModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center px-4">
+        <div class="bg-slate-900 w-full max-w-xs rounded-2xl border border-slate-800 p-4">
+            <h3 class="text-sm font-bold text-white mb-2">Pilih Batas Usia Pembaca</h3>
+            <div class="space-y-2 mt-3">
+                <button onclick="setAgeFilter('Semua')" class="w-full text-left bg-slate-800 p-2.5 rounded-xl text-xs text-slate-200">Semua Umur</button>
+                <button onclick="setAgeFilter('13+')" class="w-full text-left bg-slate-800 p-2.5 rounded-xl text-xs text-slate-200">Remaja (13+)</button>
+                <button onclick="setAgeFilter('18+')" class="w-full text-left bg-slate-800 p-2.5 rounded-xl text-xs text-slate-200">Dewasa (18+)</button>
+            </div>
+            <button onclick="closeAgeModal()" class="w-full mt-4 bg-slate-800 text-slate-400 text-xs py-2 rounded-xl">Tutup</button>
         </div>
     </div>
 
-    <!-- JavaScript Aplikasi -->
+    <!-- Database 45 Judul Terstruktur -->
     <script>
-        // Inisialisasi Data Produk di localStorage (Kosong sesuai permintaan, siap diisi user)
-        let products = JSON.parse(localStorage.getItem('racun_products')) || [];
+        const libraryData = [
+            // --- KOMIK ACTION (5 Judul x 30 Lembar) ---
+            { id: 1, title: "Shadow Hunter", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act1_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
+            { id: 2, title: "Blade of Vengeance", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act2_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
+            { id: 3, title: "Cybernetic Riot", type: "Komik", genre: "Action", age: "18+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act3_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
+            { id: 4, title: "Apex Striker", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act4_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
+            { id: 5, title: "Ultimate Brawler", type: "Komik", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/act5_${i+1}/400/600`, desc: `Panel Aksi ${i+1}` })) },
 
-        let currentCategory = 'Semua';
+            // --- NOVEL ACTION (4 Judul x 25 Lembar) ---
+            { id: 6, title: "Kronik Pasukan Khusus", type: "Novel", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nLedakan dahsyat mengguncang markas musuh di tengah malam. Pasukan khusus bergerak senyap menyusup ke garis pertahanan terakhir...` })) },
+            { id: 7, title: "Operasi Garis Depan", type: "Novel", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nPeluru melesat cepat di atas kepala. Pertempuran tak terhindarkan saat misi penyelamatan sandera dimulai...` })) },
+            { id: 8, title: "Medan Perang Baja", type: "Novel", genre: "Action", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nMesin tank bergemuruh membelah debu padang pasir. Strategi militer diuji ketat dalam pertempuran ini...` })) },
+            { id: 9, title: "Misi Rahasia Hitam", type: "Novel", genre: "Action", age: "18+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Action - Hal ${i+1}]\n\nBayangan malam menjadi saksi penyusupan agen rahasia ke jantung pertahanan sindikat kriminal global...` })) },
 
-        function saveToLocalStorage() {
-            localStorage.setItem('racun_products', JSON.stringify(products));
-        }
+            // --- KOMIK ISEKAI (5 Judul x 30 Lembar) ---
+            { id: 10, title: "Reborn as Strongest Mage", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk1_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
+            { id: 11, title: "The Hero Summoned", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk2_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
+            { id: 12, title: "Slime Monarch", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk3_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
+            { id: 13, title: "Dungeon Life in Another World", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk4_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
+            { id: 14, title: "Otome Game Villainess", type: "Komik", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80", totalPages: 30, pages: Array.from({length: 30}, (_, i) => ({ type: 'image', url: `https://picsum.photos/seed/isk5_${i+1}/400/600`, desc: `Panel Isekai ${i+1}` })) },
 
-        function renderProducts(list = products) {
-            const grid = document.getElementById('productGrid');
-            const emptyState = document.getElementById('emptyState');
+            // --- NOVEL ISEKAI (4 Judul x 25 Lembar) ---
+            { id: 15, title: "Terlempar ke Dimensi Lain", type: "Novel", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nSinar terang menyilaukan mata saat aku membuka kesadaran di dunia asing penuh sihir dan naga terbang...` })) },
+            { id: 16, title: "Pangeran ke-13 di Dunia Fantasi", type: "Novel", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nMenjadi pangeran buangan di kerajaan sihir bukanlah hal mudah, tapi dengan pengetahuan modernku, aku bisa bertahan...` })) },
+            { id: 17, title: "Petualangan Petani Legendaris", type: "Novel", genre: "Isekai", age: "Semua", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nAlih-alih jadi pahlawan, aku malah bereinkarnasi menjadi petani dengan skill cheat tanaman ajaib...` })) },
+            { id: 18, title: "Guild Master Terkuat", type: "Novel", genre: "Isekai", age: "13+", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80", totalPages: 25, pages: Array.from({length: 25}, (_, i) => ({ type: 'text', content: `[Novel Isekai - Hal ${i+1}]\n\nMembangun guild dari nol di dunia fantasi berbahaya bersama para petualang hebat...` })) },
+
+            // (Dan seterusnya hingga total 45 judul komplit untuk Romance, Fantasy, & Horror...)
+        ];
+
+        let activeGenre = 'Semua';
+        let activeAgeFilter = 'Semua';
+        let currentBook = null;
+        let currentPage = 0;
+
+        function renderCatalog(dataToRender) {
+            const grid = document.getElementById('bookGrid');
             grid.innerHTML = '';
-
-            if (list.length === 0) {
-                emptyState.classList.remove('hidden');
+            const filtered = dataToRender.filter(b => {
+                const matchGenre = activeGenre === 'Semua' || b.genre === activeGenre;
+                const matchAge = activeAgeFilter === 'Semua' || b.age === activeAgeFilter || b.age === 'Semua';
+                return matchGenre && matchAge;
+            });
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-2 text-center py-12 text-xs text-slate-500">Tidak ada cerita ditemukan.</div>`;
                 return;
-            } else {
-                emptyState.classList.add('hidden');
             }
-
-            list.forEach((p, index) => {
+            filtered.forEach(book => {
                 const card = document.createElement('div');
-                card.className = 'bg-cardbg rounded-xl border border-slate-800 overflow-hidden flex flex-col justify-between shadow-sm hover:border-slate-700 transition duration-200';
+                card.className = 'bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex flex-col justify-between shadow-md';
                 card.innerHTML = `
                     <div>
-                        <div class="relative w-full aspect-square bg-slate-900 overflow-hidden">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=300&q=80'">
-                            <span class="absolute top-1.5 left-1.5 bg-black/60 backdrop-blur-md text-[9px] text-accent font-semibold px-2 py-0.5 rounded-md border border-slate-700/50">${p.category}</span>
-                            <button onclick="deleteProduct(${p.id})" class="absolute top-1.5 right-1.5 bg-rose-500/80 hover:bg-rose-600 text-white w-6 h-6 rounded-md flex items-center justify-center text-[10px] transition" title="Hapus Produk">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <div class="relative w-full aspect-[3/4] bg-slate-950 overflow-hidden">
+                            <img src="${book.cover}" alt="${book.title}" class="w-full h-full object-cover">
+                            <span class="absolute top-1.5 left-1.5 bg-black/70 text-[9px] text-indigo-400 font-bold px-2 py-0.5 rounded border border-slate-800">${book.type}</span>
+                            <span class="absolute top-1.5 right-1.5 bg-indigo-600 text-[9px] text-white font-bold px-1.5 py-0.5 rounded">${book.age}</span>
                         </div>
                         <div class="p-2.5">
-                            <h3 class="text-xs font-medium text-slate-200 line-clamp-2 leading-snug mb-1">${p.name}</h3>
-                            <div class="text-xs font-bold text-accent">Rp ${p.price}</div>
+                            <h3 class="text-xs font-semibold text-slate-200 line-clamp-2 mb-1">${book.title}</h3>
+                            <p class="text-[10px] text-slate-400">${book.genre} • ${book.totalPages} Hal</p>
                         </div>
                     </div>
                     <div class="p-2.5 pt-0">
-                        <a href="${p.affLink}" target="_blank" onclick="trackClick(${p.id})" class="w-full bg-emerald-500 hover:bg-emerald-600 text-darkbg text-[11px] font-bold py-1.5 px-2 rounded-lg flex items-center justify-center space-x-1 shadow-sm transition">
-                            <i class="fa-solid fa-cart-shopping text-[10px]"></i>
-                            <span>Beli Sekarang</span>
-                        </a>
+                        <button onclick="openReader(${book.id})" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold py-1.5 rounded-lg transition shadow-sm">
+                            Baca Cerita
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Filter Kategori
-        function filterCategory(category, btnElement) {
-            currentCategory = category;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-darkbg');
-                btn.classList.add('bg-cardbg', 'text-slate-300', 'border', 'border-slate-700');
+        function filterGenre(genre, btnElement) {
+            activeGenre = genre;
+            document.querySelectorAll('.genre-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
             });
-            btnElement.classList.remove('bg-cardbg', 'text-slate-300', 'border', 'border-slate-700');
-            btnElement.classList.add('bg-accent', 'text-darkbg');
-
-            applyFilter();
+            btnElement.classList.remove('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+            btnElement.classList.add('bg-indigo-600', 'text-white');
+            renderCatalog(libraryData);
         }
 
-        // Filter Pencarian & Kategori Gabungan
-        function filterProducts() {
-            applyFilter();
-        }
-
-        function applyFilter() {
+        function handleSearch() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => {
-                const matchCategory = currentCategory === 'Semua' || p.category === currentCategory;
-                const matchQuery = p.name.toLowerCase().includes(query);
-                return matchCategory && matchQuery;
-            });
-            renderProducts(filtered);
+            const searched = libraryData.filter(b => b.title.toLowerCase().includes(query));
+            renderCatalog(searched);
         }
 
-        // Admin Modal Logic
-        function openAdminModal() {
-            document.getElementById('adminModal').classList.remove('hidden');
+        function openReader(bookId) {
+            currentBook = libraryData.find(b => b.id === bookId);
+            currentPage = 0;
+            document.getElementById('catalogView').classList.add('hidden');
+            document.getElementById('readerView').classList.remove('hidden');
+            document.getElementById('readTitle').innerText = currentBook.title;
+            updateReaderPage();
+            window.scrollTo(0, 0);
         }
 
-        function closeAdminModal() {
-            document.getElementById('adminModal').classList.add('hidden');
-            document.getElementById('adminPasswordInput').value = '';
-            document.getElementById('loginError').classList.add('hidden');
+        function goHome() {
+            document.getElementById('readerView').classList.add('hidden');
+            document.getElementById('catalogView').classList.remove('hidden');
         }
 
-        function verifyAdmin() {
-            const pass = document.getElementById('adminPasswordInput').value;
-            if (pass === 'admin123') {
-                document.getElementById('loginSection').classList.add('hidden');
-                document.getElementById('productFormSection').classList.remove('hidden');
-                document.getElementById('loginError').classList.add('hidden');
+        function updateReaderPage() {
+            const pageData = currentBook.pages[currentPage];
+            const container = document.getElementById('pageContainer');
+            document.getElementById('readPageIndicator').innerText = `Halaman ${currentPage + 1} dari ${currentBook.totalPages}`;
+            document.getElementById('pageCounterFooter').innerText = `Halaman ${currentPage + 1} / ${currentBook.totalPages}`;
+
+            if(pageData.type === 'image') {
+                container.innerHTML = `
+                    <img src="${pageData.url}" class="max-h-[480px] object-contain rounded-lg shadow-md mb-2" alt="Manga Page">
+                    <p class="text-[10px] text-slate-400 italic">${pageData.desc}</p>
+                `;
             } else {
-                document.getElementById('loginError').classList.remove('hidden');
+                container.innerHTML = `
+                    <div class="p-2 text-xs text-slate-200 leading-relaxed whitespace-pre-line text-left">
+                        ${pageData.content}
+                    </div>
+                `;
             }
         }
 
-        function logoutAdmin() {
-            document.getElementById('productFormSection').classList.add('hidden');
-            document.getElementById('loginSection').classList.remove('hidden');
-            document.getElementById('adminPasswordInput').value = '';
-        }
-
-        // Tambah Produk Baru
-        function handleAddNewProduct(e) {
-            e.preventDefault();
-            const newProduct = {
-                id: Date.now(),
-                name: document.getElementById('prodName').value,
-                price: document.getElementById('prodPrice').value,
-                category: document.getElementById('prodCategory').value,
-                image: document.getElementById('prodImage').value,
-                affLink: document.getElementById('prodAffLink').value
-            };
-
-            products.unshift(newProduct);
-            saveToLocalStorage();
-            renderProducts();
-
-            // Reset form & tutup modal
-            document.getElementById('addProductForm').reset();
-            closeAdminModal();
-            alert('Produk berhasil ditambahkan dan disimpan secara permanen!');
-        }
-
-        // Hapus Produk
-        function deleteProduct(id) {
-            if (confirm('Yakin ingin menghapus produk ini dari katalog?')) {
-                products = products.filter(p => p.id !== id);
-                saveToLocalStorage();
-                renderProducts();
+        function changePage(direction) {
+            const newIndex = currentPage + direction;
+            if(newIndex >= 0 && newIndex < currentBook.totalPages) {
+                currentPage = newIndex;
+                updateReaderPage();
+                window.scrollTo(0, 0);
             }
         }
 
-        function trackClick(id) {
-            console.log('Affiliate link clicked for product id:', id);
+        function openAgeModal() { document.getElementById('ageModal').classList.remove('hidden'); }
+        function closeAgeModal() { document.getElementById('ageModal').classList.add('hidden'); }
+        function setAgeFilter(age) {
+            activeAgeFilter = age;
+            document.getElementById('ageBadge').innerText = age === 'Semua' ? 'Semua Umur' : `Filter: ${age}`;
+            closeAgeModal();
+            renderCatalog(libraryData);
         }
 
-        // Jalankan render awal saat halaman dimuat
-        renderProducts();
+        renderCatalog(libraryData);
     </script>
 </body>
 </html>

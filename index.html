@@ -1,276 +1,352 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novelku & Komiku - Perpustakaan Hangat</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        creamBg: '#fdfbf7',
-                        cardWhite: '#ffffff',
-                        orangeAcc: '#f97316',
-                        brownText: '#451a03',
-                        subText: '#78716c'
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RexAPK - Install game impianmu</title>
+<style>
+:root{--bg:#000;--green:#22c55e;--white:#fff;--glass:rgba(255,255,255,.07);--line:rgba(255,255,255,.18);color-scheme:dark}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;background:var(--green);filter:blur(90px);opacity:.3;z-index:0;pointer-events:none}
+.b1{width:260px;height:260px;top:-60px;left:-80px}
+.b2{width:300px;height:300px;bottom:10%;right:-120px}
+.wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:16px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:20px;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;margin-bottom:20px}
+.logo{font-size:22px;font-weight:800;letter-spacing:.5px}
+.logo b{color:var(--green)}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--green);color:var(--bg);border:0;border-radius:12px;padding:10px 16px;font-weight:700;text-decoration:none;display:inline-block;text-align:center}
+.ghost{background:transparent;color:var(--white);border:1px solid var(--line)}
+.hero{text-align:center;padding:28px 16px;margin-bottom:20px}
+.hero h1{margin:0 0 10px;font-size:clamp(26px,6vw,40px)}
+.hero h1 span{color:var(--green)}
+#slogan{min-height:48px;margin:0 auto 18px;max-width:520px;transition:opacity .4s;font-size:16px}
+#slogan.out{opacity:0}
+.search{display:block;width:100%;max-width:460px;margin:0 auto;background:var(--glass);color:var(--white);border:1.5px solid var(--green);border-radius:999px;padding:14px 24px;font:inherit;font-weight:600;outline:none;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:background .2s}
+.search::placeholder{color:var(--white);opacity:.6}
+.search:focus{background:rgba(255,255,255,.12)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 16px}
+.tab{flex:none;background:var(--glass);color:var(--white);border:1px solid var(--line);border-radius:999px;padding:8px 18px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.tab.on{background:var(--green);color:var(--bg);border-color:var(--green);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.card{padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.ico{width:84px;height:84px;border-radius:20px;object-fit:cover;background:var(--glass);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:var(--green)}
+.name{font-weight:700;word-break:break-word}
+.cat{font-size:12px;color:var(--green)}
+.card .btn{width:100%;margin-top:4px}
+.empty{grid-column:1/-1;text-align:center;padding:32px;opacity:.8}
+footer{text-align:center;padding:24px;opacity:.7;font-size:13px}
+footer a{color:var(--green);cursor:pointer}
+#modal{position:fixed;inset:0;z-index:10;background:var(--bg);overflow-y:auto;padding:16px;display:none}
+#modal.show{display:block}
+.panel{max-width:560px;margin:0 auto;padding:18px}
+.panel h2{margin:0 0 4px}
+label{display:block;font-size:13px;margin:12px 0 4px}
+input,select,textarea{width:100%;background:var(--glass);color:var(--white);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit}
+input.search{border:1.5px solid var(--green);border-radius:999px;padding:14px 24px}
+select option{background:var(--bg);color:var(--white)}
+.row{display:flex;gap:8px;margin-top:16px}
+.row>*{flex:1}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.item .ico{width:44px;height:44px;border-radius:10px;font-size:18px}
+.item .t{flex:1;min-width:0;word-break:break-word}
+.item button{padding:6px 10px;border-radius:10px}
+.note{font-size:12px;opacity:.7;margin:6px 0 0}
+#msg{color:var(--green);font-size:13px;min-height:18px;margin-top:10px}
+#status{font-size:12px;color:var(--green);margin-top:6px}
+</style>
 </head>
-<body class="bg-creamBg text-brownText min-h-screen font-sans pb-16">
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
 
-    <!-- Header / Navbar (Nuansa Putih, Oranye, Cokelat) -->
-    <header class="sticky top-0 z-50 bg-cardWhite/95 backdrop-blur-md border-b border-orange-100 px-4 py-3 shadow-sm">
-        <div class="max-w-md mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-2.5 cursor-pointer" onclick="goHome()">
-                <div class="bg-orangeAcc p-2 rounded-xl text-white font-black text-base shadow-md shadow-orange-500/20">
-                    <i class="fa-solid fa-book-open"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-sm text-brownText leading-tight">Novelku & Komiku</h1>
-                    <p class="text-[10px] text-orangeAcc font-medium">Bacaan Seru & Berkualitas</p>
-                </div>
-            </div>
-            <button onclick="openAgeModal()" class="bg-orange-50 hover:bg-orange-100 text-brownText text-xs px-3 py-1.5 rounded-xl border border-orange-200 flex items-center space-x-1.5 transition">
-                <i class="fa-solid fa-shield-halved text-orangeAcc"></i>
-                <span id="ageBadge" class="font-semibold">Semua Umur</span>
-            </button>
-        </div>
-    </header>
+<div class="wrap">
+  <header class="glass">
+    <div class="logo">Rex<b>APK</b></div>
+  </header>
 
-    <!-- Main Container Catalog -->
-    <main id="catalogView" class="max-w-md mx-auto px-3 pt-4">
-        <!-- Search Input -->
-        <div class="mb-3">
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-subText">
-                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                </span>
-                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Cari judul novel atau komik pilihan..." 
-                    class="w-full bg-cardWhite text-xs text-brownText pl-10 pr-4 py-3 rounded-2xl border border-orange-200 focus:outline-none focus:border-orangeAcc shadow-sm transition">
-            </div>
-        </div>
+  <section class="hero glass">
+    <h1>Install game <span>impianmu</span></h1>
+    <p id="slogan"></p>
+    <input class="search" id="q" type="search" placeholder="Cari game atau aplikasi...">
+  </section>
 
-        <!-- Genre Filter Pills -->
-        <div class="flex space-x-2 overflow-x-auto pb-2 no-scrollbar mb-3">
-            <button onclick="filterGenre('Semua', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-orangeAcc text-white shadow-sm transition">Semua</button>
-            <button onclick="filterGenre('Action', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Action</button>
-            <button onclick="filterGenre('Isekai', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Isekai</button>
-            <button onclick="filterGenre('Romance', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Romance</button>
-            <button onclick="filterGenre('Fantasy', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Fantasy</button>
-            <button onclick="filterGenre('Horror', this)" class="genre-btn whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cardWhite text-brownText border border-orange-200 hover:bg-orange-50 transition">Horror</button>
-        </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="grid"></div>
 
-        <!-- Book Grid -->
-        <div id="bookGrid" class="grid grid-cols-2 gap-3"></div>
-    </main>
+  <footer>&copy; RexAPK - Install game impianmu &middot; <a id="adminLink">Admin</a></footer>
+</div>
 
-    <!-- Reader View -->
-    <main id="readerView" class="max-w-md mx-auto px-3 pt-3 hidden">
-        <button onclick="goHome()" class="mb-3 bg-cardWhite text-brownText hover:bg-orange-50 px-3 py-2 rounded-xl border border-orange-200 text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition">
-            <i class="fa-solid fa-arrow-left text-orangeAcc"></i>
-            <span>Kembali ke Rak Buku</span>
-        </button>
+<!-- ADMIN PANEL -->
+<div id="modal">
+  <div class="panel glass">
+    <h2>Admin Panel</h2>
+    <div id="status"></div>
+    <p class="note">Isi nama, gambar (link atau upload), dan link tujuan unduh.</p>
 
-        <div class="bg-cardWhite rounded-2xl border border-orange-200 p-4 shadow-sm">
-            <div class="flex justify-between items-center mb-3 border-b border-orange-100 pb-2">
-                <div>
-                    <h2 id="readTitle" class="text-xs font-bold text-brownText">Judul</h2>
-                    <p id="readPageIndicator" class="text-[10px] text-orangeAcc font-medium">Halaman 1</p>
-                </div>
-                <div class="flex space-x-1.5">
-                    <button onclick="changePage(-1)" class="bg-orange-50 text-brownText hover:bg-orange-100 px-3 py-1.5 rounded-xl text-xs font-bold border border-orange-200"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button onclick="changePage(1)" class="bg-orangeAcc text-white hover:bg-orange-600 px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
-            </div>
+    <label>Nama aplikasi</label>
+    <input id="fName">
 
-            <div id="pageContainer" class="bg-amber-50/50 rounded-xl min-h-[420px] flex flex-col items-center justify-center p-3 border border-orange-100 text-center"></div>
+    <label>Kategori</label>
+    <select id="fCat"></select>
 
-            <div class="flex justify-between items-center mt-3 pt-2 border-t border-orange-100">
-                <button onclick="changePage(-1)" class="text-[11px] text-subText font-medium hover:text-brownText"><i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya</button>
-                <span id="pageCounterFooter" class="text-[10px] text-subText font-semibold">Hal 1</span>
-                <button onclick="changePage(1)" class="text-[11px] text-orangeAcc font-bold hover:underline">Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
-            </div>
-        </div>
-    </main>
+    <label>Link gambar</label>
+    <input id="fImg" placeholder="https://contoh.com/logo.png">
 
-    <!-- Modal Filter Umur -->
-    <div id="ageModal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center px-4">
-        <div class="bg-cardWhite w-full max-w-xs rounded-2xl border border-orange-200 p-4 shadow-xl">
-            <h3 class="text-sm font-bold text-brownText mb-1">Pilih Batas Usia Pembaca</h3>
-            <p class="text-[11px] text-subText mb-3">Sesuaikan kategori bacaan dengan usia kamu.</p>
-            <div class="space-y-2">
-                <button onclick="setAgeFilter('Semua')" class="w-full text-left bg-orange-50 hover:bg-orange-100 p-2.5 rounded-xl text-xs font-semibold text-brownText border border-orange-100">Semua Umur</button>
-                <button onclick="setAgeFilter('13+')" class="w-full text-left bg-orange-50 hover:bg-orange-100 p-2.5 rounded-xl text-xs font-semibold text-brownText border border-orange-100">Remaja (13+)</button>
-                <button onclick="setAgeFilter('18+')" class="w-full text-left bg-orange-50 hover:bg-orange-100 p-2.5 rounded-xl text-xs font-semibold text-brownText border border-orange-100">Dewasa (18+)</button>
-            </div>
-            <button onclick="closeAgeModal()" class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-subText text-xs font-semibold py-2.5 rounded-xl">Tutup</button>
-        </div>
+    <label>Atau upload gambar dari perangkat</label>
+    <input id="fFile" type="file" accept="image/*">
+
+    <label>Link tujuan (website resmi)</label>
+    <input id="fLink" placeholder="https://...">
+
+    <div class="row">
+      <button class="btn" id="save">Simpan</button>
+      <button class="btn ghost" id="cancel">Batal edit</button>
     </div>
+    <div id="msg"></div>
 
-    <!-- Database Cerita Berkualitas (Novel & Komik Berkelanjutan) -->
-    <script>
-        const libraryData = [
-            {
-                id: 1,
-                title: "Bangkitnya Ksatria Naga Api",
-                type: "Komik",
-                genre: "Action",
-                age: "13+",
-                cover: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80",
-                totalPages: 5,
-                pages: [
-                    { type: 'text', title: 'Panel 1: Serangan Fajar', content: 'Di tengah reruntuhan benteng tua, bara api menyala dari pedang sang ksatria muda. Lawannya adalah sesosok jenderal iblis bertanduk hitam.' },
-                    { type: 'text', title: 'Panel 2: Bentrokan Pedang', content: 'Kilas balik cahaya merah menyambar cepat. Suara dentingan baja beradu memecah keheningan pagi di lembah kematian.' },
-                    { type: 'text', title: 'Panel 3: Kekuatan Tersembunyi', content: 'Napas sang ksatria mulai memburu. Segel naga di lengan kanannya perlahan terbuka, memancarkan energi panas yang luar biasa.' },
-                    { type: 'text', title: 'Panel 4: Serangan Pemungkas', content: 'Dengan satu tebasan terakhir berkecepatan tinggi, api melingkar membentuk wujud kepala naga raksasa!' },
-                    { type: 'text', title: 'Panel 5: Kemenangan Pertama', content: 'Sang jenderal iblis terpental dan ambruk. Pertempuran pertama dimenangkan, namun perjalanan masih sangat panjang.' }
-                ]
-            },
-            {
-                id: 2,
-                title: "Catatan Harian Penyihir Isekai",
-                type: "Novel",
-                genre: "Isekai",
-                age: "Semua",
-                cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80",
-                totalPages: 5,
-                pages: [
-                    { type: 'text', title: 'Bab 1: Hari Pertama di Dunia Baru', content: 'Hari ini aku terbangun di atas hamparan rumput biru bercahaya. Tidak ada lagi kamar kos atau tumpukan tugas kuliah, yang ada hanyalah hutan misterius dengan pohon setinggi langit.' },
-                    { type: 'text', title: 'Bab 2: Menemukan Buku Sihir Kuno', content: 'Saat menyusuri jalan setapak, aku menemukan sebuah buku bersampul kulit hijau tua di dalam gua batu. Ketika kubuka, halaman-halamannya bersinar terang dan meresap ke dalam ingatanku.' },
-                    { type: 'text', title: 'Bab 3: Bertemu Makhluk Kecil Bernama Pixie', content: 'Seekor peri kecil bersayap kristal tiba-tiba muncul dan mengejarku sambil marah-marah karena aku tidak sengaja menduduki rumah jamurnya.' },
-                    { type: 'text', title: 'Bab 4: Mantra Pertama yang Berhasil', content: 'Berbekal instruksi dari buku kuno, aku mencoba mengarahkan tangan ke arah ranting pohon kering. "Lumen!" seruku, dan sulur api kecil berhasil tercipta di ujung jariku.' },
-                    { type: 'text', title: 'Bab 5: Memulai Petualangan Menuju Kota', content: 'Bersama si pixie kecil, aku melangkah meninggalkan hutan sunyi menuju kota sihir pertama untuk mencari cara kembali—atau mungkin, menikmati hidup baru ini.' }
-                ]
-            },
-            {
-                id: 3,
-                title: "Janji Di Bawah Senja",
-                type: "Novel",
-                genre: "Romance",
-                age: "Semua",
-                cover: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&q=80",
-                totalPages: 3,
-                pages: [
-                    { type: 'text', title: 'Bab 1: Pertemuan Tak Terduga', content: 'Hujan deras turun tiba-tiba di halte bus sekolah. Hanya ada aku dan dirinya, berdiri berdampingan dalam canggung yang manis.' },
-                    { type: 'text', title: 'Bab 2: Secangkir Cokelat Hangat', content: 'Ia menyodorkan kaleng minuman cokelat hangat dari mesin otomatis. Senyum kecilnya membuat hari yang dingin terasa begitu hangat.' },
-                    { type: 'text', title: 'Bab 3: Langit Senja Kita', content: 'Sejak hari itu, halte kecil ini menjadi saksi bisu ribuan cerita tawa dan mimpi yang kami rajut bersama hingga senja menjelang.' }
-                ]
-            }
-        ];
+    <h3 style="margin:20px 0 0">Daftar aplikasi</h3>
+    <div id="adminList"></div>
 
-        let activeGenre = 'Semua';
-        let activeAgeFilter = 'Semua';
-        let currentBook = null;
-        let currentPage = 0;
+    <h3 style="margin:20px 0 0">Backup data</h3>
+    <p class="note">Export dulu sebelum mengganti kode atau hosting. Import untuk memulihkan semua aplikasi.</p>
+    <div class="row">
+      <button class="btn ghost" id="export">Export JSON</button>
+      <button class="btn ghost" id="importBtn">Import JSON</button>
+    </div>
+    <input id="importFile" type="file" accept="application/json,.json" hidden>
 
-        function renderCatalog(dataToRender) {
-            const grid = document.getElementById('bookGrid');
-            grid.innerHTML = '';
-            const filtered = dataToRender.filter(b => {
-                const matchGenre = activeGenre === 'Semua' || b.genre === activeGenre;
-                const matchAge = activeAgeFilter === 'Semua' || b.age === activeAgeFilter || b.age === 'Semua';
-                return matchGenre && matchAge;
-            });
-            if(filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-2 text-center py-12 text-xs text-subText">Tidak ada cerita ditemukan untuk kategori ini.</div>`;
-                return;
-            }
-            filtered.forEach(book => {
-                const card = document.createElement('div');
-                card.className = 'bg-cardWhite rounded-2xl border border-orange-100 overflow-hidden flex flex-col justify-between shadow-sm hover:border-orange-300 transition';
-                card.innerHTML = `
-                    <div>
-                        <div class="relative w-full aspect-[3/4] bg-orange-50 overflow-hidden">
-                            <img src="${book.cover}" alt="${book.title}" class="w-full h-full object-cover">
-                            <span class="absolute top-2 left-2 bg-brownText/80 backdrop-blur-sm text-[9px] text-white font-bold px-2 py-0.5 rounded-md">${book.type}</span>
-                            <span class="absolute top-2 right-2 bg-orangeAcc text-[9px] text-white font-bold px-2 py-0.5 rounded-md">${book.age}</span>
-                        </div>
-                        <div class="p-3">
-                            <h3 class="text-xs font-bold text-brownText line-clamp-2 mb-1">${book.title}</h3>
-                            <p class="text-[10px] text-subText font-medium">Genre: ${book.genre}</p>
-                        </div>
-                    </div>
-                    <div class="p-3 pt-0">
-                        <button onclick="openReader(${book.id})" class="w-full bg-orangeAcc hover:bg-orange-600 text-white text-[11px] font-bold py-2 rounded-xl transition shadow-sm">
-                            Baca Cerita
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+    <div class="row"><button class="btn ghost" id="close">Tutup</button></div>
+  </div>
+</div>
 
-        function filterGenre(genre, btnElement) {
-            activeGenre = genre;
-            document.querySelectorAll('.genre-btn').forEach(btn => {
-                btn.classList.remove('bg-orangeAcc', 'text-white', 'shadow-sm');
-                btn.classList.add('bg-cardWhite', 'text-brownText', 'border', 'border-orange-200');
-            });
-            btnElement.classList.remove('bg-cardWhite', 'text-brownText', 'border', 'border-orange-200');
-            btnElement.classList.add('bg-orangeAcc', 'text-white', 'shadow-sm');
-            renderCatalog(libraryData);
-        }
+<script>
+/* ====== PENGATURAN ====== */
+var ADMIN_PASS = "rex123";   // GANTI password admin
 
-        function handleSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const searched = libraryData.filter(b => b.title.toLowerCase().includes(query));
-            renderCatalog(searched);
-        }
+/* Database online (opsional tapi disarankan agar data tidak pernah hilang).
+   Isi dengan URL Firebase Realtime Database tanpa garis miring di akhir, contoh:
+   "https://rexapk-default-rtdb.firebaseio.com"
+   Kosongkan jika tidak mau pakai. */
+var DB_URL = "";
 
-        function openReader(bookId) {
-            currentBook = libraryData.find(b => b.id === bookId);
-            currentPage = 0;
-            document.getElementById('catalogView').classList.add('hidden');
-            document.getElementById('readerView').classList.remove('hidden');
-            document.getElementById('readTitle').innerText = currentBook.title;
-            updateReaderPage();
-            window.scrollTo(0, 0);
-        }
+var STORE_KEY = "rexapk_apps_v1";
+var CATS = ["Game","Aplikasi","Tools","Lainnya"];
+var SLOGANS = [
+  "Temukan game favoritmu, install dalam sekali tap.",
+  "Satu tempat untuk semua game dan aplikasi impianmu.",
+  "Gratis, cepat, dan langsung ke sumber resminya.",
+  "Main lebih seru, mulai dari RexAPK.",
+  "Dari game seru sampai aplikasi penting, semua ada di sini."
+];
+/* Data awal (dipakai hanya jika belum ada data tersimpan sama sekali) */
+var DEFAULT_APPS = [
+  // {"id":"1","name":"Contoh Game","cat":"Game","img":"https://...","link":"https://..."}
+];
+/* ======================== */
 
-        function goHome() {
-            document.getElementById('readerView').classList.add('hidden');
-            document.getElementById('catalogView').classList.remove('hidden');
-        }
+var $ = function(i){return document.getElementById(i)};
+var cat = "Semua", editId = null, fileData = null, apps = [];
 
-        function updateReaderPage() {
-            const pageData = currentBook.pages[currentPage];
-            const container = document.getElementById('pageContainer');
-            document.getElementById('readPageIndicator').innerText = `Halaman ${currentPage + 1} dari ${currentBook.totalPages}`;
-            document.getElementById('pageCounterFooter').innerText = `Halaman ${currentPage + 1} / ${currentBook.totalPages}`;
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function okUrl(u){return /^https?:\/\//i.test(u)}
+function clean(list){
+  if(!Array.isArray(list)) return [];
+  return list.filter(function(a){return a && a.name && okUrl(a.link)}).map(function(a){
+    return {id:String(a.id||Date.now()+Math.random()),name:String(a.name),cat:CATS.indexOf(a.cat)>-1?a.cat:"Lainnya",img:a.img||"",link:a.link};
+  });
+}
 
-            container.innerHTML = `
-                <div class="p-4 text-left w-full">
-                    <h4 class="text-xs font-bold text-orangeAcc mb-2 uppercase tracking-wide">${pageData.title || 'Halaman ' + (currentPage + 1)}</h4>
-                    <p class="text-xs text-brownText leading-relaxed whitespace-pre-line">${pageData.content}</p>
-                </div>
-            `;
-        }
+/* ====== PENYIMPANAN ====== */
+function readLocal(){
+  try{var s=localStorage.getItem(STORE_KEY);if(s)return clean(JSON.parse(s))}catch(e){}
+  return null;
+}
+function writeLocal(){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify(apps))}catch(e){}
+}
+function setStatus(t){$("status").textContent=t}
 
-        function changePage(direction) {
-            const newIndex = currentPage + direction;
-            if(newIndex >= 0 && newIndex < currentBook.totalPages) {
-                currentPage = newIndex;
-                updateReaderPage();
-                window.scrollTo(0, 0);
-            }
-        }
+async function loadRemote(){
+  if(!DB_URL) return null;
+  try{
+    var r=await fetch(DB_URL+"/apps.json",{cache:"no-store"});
+    if(!r.ok) throw 0;
+    var d=await r.json();
+    if(d===null) return [];          // database ada tapi masih kosong
+    if(!Array.isArray(d)) d=Object.values(d);
+    return clean(d);
+  }catch(e){return null}             // gagal -> jangan timpa apa-apa
+}
+async function saveRemote(){
+  if(!DB_URL) return true;
+  try{
+    var r=await fetch(DB_URL+"/apps.json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(apps)});
+    return r.ok;
+  }catch(e){return false}
+}
+async function persist(msg){
+  writeLocal();
+  if(DB_URL){
+    setStatus("Menyimpan ke database...");
+    var ok=await saveRemote();
+    setStatus(ok?"Tersimpan di browser + database online.":"Database online gagal, tersimpan di browser saja. Coba lagi nanti.");
+  } else {
+    setStatus("Tersimpan di browser ini. Gunakan Export JSON untuk backup.");
+  }
+  if(msg) $("msg").textContent=msg;
+}
 
-        function openAgeModal() { document.getElementById('ageModal').classList.remove('hidden'); }
-        function closeAgeModal() { document.getElementById('ageModal').classList.add('hidden'); }
-        function setAgeFilter(age) {
-            activeAgeFilter = age;
-            document.getElementById('ageBadge').innerText = age === 'Semua' ? 'Semua Umur' : `Filter: ${age}`;
-            closeAgeModal();
-            renderCatalog(libraryData);
-        }
+/* ====== ICON ====== */
+function icon(a,c){
+  if(a.img){
+    var im=el("img",c); im.alt=a.name; im.src=a.img;
+    im.onerror=function(){im.replaceWith(el("div",c,a.name.charAt(0).toUpperCase()))};
+    return im;
+  }
+  return el("div",c,a.name.charAt(0).toUpperCase());
+}
 
-        renderCatalog(libraryData);
-    </script>
+/* ====== TAMPILAN UTAMA ====== */
+function render(){
+  var tabs=$("tabs"); tabs.textContent="";
+  ["Semua"].concat(CATS).forEach(function(c){
+    var b=el("button","tab"+(c===cat?" on":""),c);
+    b.onclick=function(){cat=c;render()};
+    tabs.appendChild(b);
+  });
+  var q=$("q").value.trim().toLowerCase(), g=$("grid"); g.textContent="";
+  var list=apps.filter(function(a){
+    return (cat==="Semua"||a.cat===cat) && a.name.toLowerCase().indexOf(q)>-1;
+  });
+  if(!list.length) g.appendChild(el("div","empty glass",apps.length?"Tidak ditemukan.":"Belum ada aplikasi."));
+  list.forEach(function(a){
+    var c=el("div","card glass");
+    c.appendChild(icon(a,"ico"));
+    c.appendChild(el("div","name",a.name));
+    c.appendChild(el("div","cat",a.cat));
+    var l=el("a","btn","Unduh");
+    l.href=a.link; l.target="_blank"; l.rel="noopener noreferrer";
+    c.appendChild(l);
+    g.appendChild(c);
+  });
+}
+$("q").oninput=render;
+
+/* ====== SLOGAN BERGANTI TIAP 5 DETIK ====== */
+var si=0;
+function slog(){
+  var s=$("slogan"); s.classList.add("out");
+  setTimeout(function(){s.textContent=SLOGANS[si%SLOGANS.length];si++;s.classList.remove("out")},400);
+}
+slog(); setInterval(slog,5000);
+
+/* ====== ADMIN ====== */
+CATS.forEach(function(c){var o=el("option",null,c);o.value=c;$("fCat").appendChild(o)});
+
+function adminList(){
+  var L=$("adminList"); L.textContent="";
+  apps.forEach(function(a){
+    var r=el("div","item");
+    r.appendChild(icon(a,"ico"));
+    r.appendChild(el("div","t",a.name+" ("+a.cat+")"));
+    var e=el("button","btn ghost","Edit"), d=el("button","btn ghost","Hapus");
+    e.onclick=function(){
+      editId=a.id; $("fName").value=a.name; $("fCat").value=a.cat;
+      $("fImg").value=(a.img&&a.img.indexOf("data:")!==0)?a.img:"";
+      $("fLink").value=a.link;
+      fileData=(a.img&&a.img.indexOf("data:")===0)?a.img:null;
+      $("msg").textContent="Mengedit: "+a.name;
+      scrollTo(0,0);
+    };
+    d.onclick=function(){
+      if(confirm("Hapus "+a.name+"?")){
+        apps=apps.filter(function(x){return x.id!==a.id});
+        persist("Dihapus."); adminList(); render();
+      }
+    };
+    r.appendChild(e); r.appendChild(d); L.appendChild(r);
+  });
+}
+function reset(){
+  editId=null; fileData=null;
+  ["fName","fImg","fLink","fFile"].forEach(function(i){$(i).value=""});
+  $("msg").textContent="";
+}
+
+$("adminLink").onclick=function(){
+  var p=prompt("Password admin:");
+  if(p===ADMIN_PASS){
+    $("modal").classList.add("show"); adminList();
+    setStatus(DB_URL?"Database online aktif.":"Mode browser saja (DB_URL kosong).");
+  } else if(p!==null){ alert("Password salah."); }
+};
+$("close").onclick=function(){$("modal").classList.remove("show")};
+$("cancel").onclick=reset;
+
+$("fFile").onchange=function(){
+  var f=this.files[0]; if(!f) return;
+  var im=new Image(), u=URL.createObjectURL(f);
+  im.onload=function(){
+    var s=192, c=document.createElement("canvas"); c.width=c.height=s;
+    var x=c.getContext("2d"), m=Math.min(im.width,im.height);
+    x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,s,s);
+    fileData=c.toDataURL("image/jpeg",.8);
+    URL.revokeObjectURL(u);
+    $("msg").textContent="Gambar siap.";
+  };
+  im.src=u;
+};
+
+$("save").onclick=function(){
+  var n=$("fName").value.trim(), l=$("fLink").value.trim(), i=$("fImg").value.trim();
+  if(!n||!okUrl(l)){$("msg").textContent="Isi nama dan link tujuan (awali dengan http/https).";return}
+  if(i&&!okUrl(i)){$("msg").textContent="Link gambar harus diawali http/https.";return}
+  var a={id:editId||String(Date.now()),name:n,cat:$("fCat").value,img:fileData||i,link:l};
+  if(editId) apps=apps.map(function(x){return x.id===editId?a:x});
+  else apps.unshift(a);
+  persist("Tersimpan."); adminList(); render();
+  editId=null; fileData=null;
+  ["fName","fImg","fLink","fFile"].forEach(function(k){$(k).value=""});
+};
+
+/* Backup */
+$("export").onclick=function(){
+  var b=new Blob([JSON.stringify(apps,null,2)],{type:"application/json"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(b);
+  a.download="rexapk-backup-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  $("msg").textContent="Backup diunduh.";
+};
+$("importBtn").onclick=function(){$("importFile").click()};
+$("importFile").onchange=function(){
+  var f=this.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var d=clean(JSON.parse(r.result));
+      if(!d.length){$("msg").textContent="File kosong atau formatnya salah.";return}
+      if(!confirm("Ganti semua data dengan "+d.length+" aplikasi dari file ini?")) return;
+      apps=d; persist("Import berhasil."); adminList(); render();
+    }catch(e){$("msg").textContent="File JSON tidak valid."}
+  };
+  r.readAsText(f); this.value="";
+};
+
+/* ====== START ====== */
+(async function(){
+  var local=readLocal();
+  apps = local || clean(DEFAULT_APPS);
+  render();                          // tampil cepat dari data lokal dulu
+  var remote=await loadRemote();     // lalu sinkron dari database online
+  if(remote!==null){
+    if(remote.length||!local){ apps=remote.length?remote:apps; }
+    else if(local&&local.length){ apps=local; saveRemote(); } // db kosong, lokal ada -> isi db
+    writeLocal(); render();
+  }
+})();
+</script>
 </body>
 </html>

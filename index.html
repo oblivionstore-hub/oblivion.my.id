@@ -168,18 +168,18 @@ var CD_KEY     = "rexgames_cooldown_v1";
 var VOTER_KEY  = "rexgames_voter_v1";
 var COOLDOWN   = 30*24*60*60*1000;       // 30 hari
 var TOP_LIMIT  = 10;                     // jumlah game di kategori Teratas
-var PRIOR_MEAN = 3, PRIOR_WEIGHT = 3;    // pengatur skor Teratas (lihat penjelasan)
+var PRIOR_MEAN = 3, PRIOR_WEIGHT = 3;    // pengatur skor Teratas
 
-var CATS = ["MOBA","Sandbox","Launcher","Shooter","RPG","MMORPG","Chess"];
+var CATS = ["Game","Mod"];
 var SLOGANS = [
   "Temukan game kesukaanmu, unduh dalam sekali tap.",
   "Satu tempat untuk semua game impianmu.",
   "Cepat, praktis, dan langsung ke sumber resminya.",
   "Beri rating dan bantu game favoritmu naik ke puncak.",
-  "Dari MOBA sampai RPG, semua ada di RexGames."
+  "Dari game seru sampai mod terbaru, semua ada di RexGames."
 ];
 var DEFAULT_APPS = [
-  // {"id":"1","name":"Contoh Game","cat":"MOBA","img":"https://...","link":"https://..."}
+  // {"id":"1","name":"Contoh Game","cat":"Game","img":"https://...","link":"https://..."}
 ];
 /* ======================== */
 
@@ -193,7 +193,13 @@ function writeJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}
 function toArr(d){if(d==null)return [];if(Array.isArray(d))return d.filter(function(x){return x!=null});return Object.keys(d).map(function(k){return d[k]})}
 function clean(list){
   return toArr(list).filter(function(a){return a&&a.name&&okUrl(a.link)}).map(function(a){
-    return {id:String(a.id||Date.now()+Math.random()).replace(/[.#$\[\]\/]/g,"_"),name:String(a.name),cat:String(a.cat||CATS[0]),img:a.img||"",link:a.link};
+    return {
+      id:String(a.id||Date.now()+Math.random()).replace(/[.#$\[\]\/]/g,"_"),
+      name:String(a.name),
+      cat:a.cat==="Mod"?"Mod":"Game",     // kategori lama (MOBA, RPG, dll) otomatis jadi Game
+      img:a.img||"",
+      link:a.link
+    };
   });
 }
 var toastT;
@@ -336,7 +342,7 @@ function card(a,rank){
 
 function render(){
   var tabs=$("tabs"); tabs.textContent="";
-  ["Semua","Teratas"].concat(CATS).forEach(function(c){
+  ["Semua"].concat(CATS).concat(["Teratas"]).forEach(function(c){
     var b=el("button","tab"+(c===tab?" on":""),c);
     b.onclick=function(){tab=c;render()};
     tabs.appendChild(b);
@@ -378,8 +384,7 @@ function adminList(){
     r.appendChild(el("div","t",a.name+" ("+a.cat+")"));
     var e=el("button","btn ghost","Edit"), d=el("button","btn ghost","Hapus");
     e.onclick=function(){
-      editId=a.id; $("fName").value=a.name;
-      if(CATS.indexOf(a.cat)>-1) $("fCat").value=a.cat;
+      editId=a.id; $("fName").value=a.name; $("fCat").value=a.cat;
       $("fImg").value=(a.img&&a.img.indexOf("data:")!==0)?a.img:"";
       $("fLink").value=a.link;
       fileData=(a.img&&a.img.indexOf("data:")===0)?a.img:null;
